@@ -1,0 +1,19 @@
+{
+  "name": "long-period-fibre-gratings",
+  "version": "1.0.0",
+  "description": "Shaun Hamilton's thesis: Analysis of Grating-Based Optical Sensors for Extreme Environments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "LPFG",
+    "fibre",
+    "grating",
+    "Shaun",
+    "Hamilton",
+    "thesis"
+  ],
+  "author": "Shaun Hamilton",
+  "license": "AFL-3.0"
+}
