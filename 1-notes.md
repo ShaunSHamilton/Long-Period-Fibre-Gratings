@@ -3,7 +3,9 @@
 ## Table of Contents <!-- omit in toc -->
 
 - [1.0 Introduction](#10-introduction)
-- [2.0 Description](#20-description)
+  - [Single-Mode and Multi-Mode Fibres (SMF & MMF)](#single-mode-and-multi-mode-fibres-smf--mmf)
+    - [Step and Graded Indices](#step-and-graded-indices)
+- [2.0 Optical Fibre Fabrication](#20-optical-fibre-fabrication)
 
 # 1.0 Introduction
 
@@ -42,9 +44,43 @@ These modes are orthogonal, and form a complete set. Any arbitrary field distrib
 
 Therefore, since it is possible to completely define the propagation of individual modes, it is possible to predict the evolution of an arbitrary field pattern, based on _guided_ and _radiation_ modes.
 
-For a given core and cladding radius, the number of modes depends on the numerical appature, and the effective index.
+For a given core and cladding radius, the number of modes depends on the numerical appature ($A_N$), core radius ($a$), and the wavelength of light ($\lambda$).
 
 - A fibre with a lower numerical appature has fewer modes
 - A fibre with a smaller core has fewer modes
 
-# 2.0 Description
+Integrating the above parameters gives the _normalised frequency_:
+
+$$
+V = \frac{2\pi}{\lambda_0}aA_N
+$$
+
+_where_
+
+$$
+A_N=\sqrt{n_1^2-n_2^2}
+$$
+
+## Single-Mode and Multi-Mode Fibres (SMF & MMF)
+
+| Normalised Frequency | Fibre Mode  |
+| -------------------- | ----------- |
+| $V \ll 2.4048$       | Single-Mode |
+| $V \gg 2.4048$       | Multi-Mode  |
+| $V \approx 2.4048$   | Few-Mode    |
+
+| Single-Mode Fibre                                            | Multi-Mode Fibre                                             |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Long Haul Communication                                      | Local Area Networks                                          |
+| Core Diameter $\backsim 10\mu m$                             | Core Diameter $\backsim 50\mu m$                             |
+| Light Source - Laser Diode                                   | Light Source - LED                                           |
+| Difficult to Couple Light                                    | Easier to Couple Light                                       |
+| Difficult to Splice Fibres                                   | Not Necessary to Splice Fibres                               |
+| Precision Equipment/Components Required                      | Cheaper System Components                                    |
+| Silica Glass: $\Delta = 0.003, A_N \backsim 0.1, a = 5\mu m$ | Silica Glass: $\Delta = 0.01, A_N \backsim 0.2, a = 25\mu m$ |
+
+### Step and Graded Indices
+
+![Figure 3.0 - Step and Graded Index](assets/step-and-graded-index.png)
+
+# 2.0 Optical Fibre Fabrication
