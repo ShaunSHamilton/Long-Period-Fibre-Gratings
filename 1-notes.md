@@ -6,6 +6,20 @@
   - [Single-Mode and Multi-Mode Fibres (SMF & MMF)](#single-mode-and-multi-mode-fibres-smf--mmf)
     - [Step and Graded Indices](#step-and-graded-indices)
 - [2.0 Optical Fibre Fabrication](#20-optical-fibre-fabrication)
+  - [Common Materials](#common-materials)
+    - [Glass](#glass)
+    - [Halide Glass](#halide-glass)
+    - [Active Glass](#active-glass)
+    - [Chalcogenide Glass](#chalcogenide-glass)
+    - [Polymer](#polymer)
+  - [Fabrication](#fabrication)
+    - [Fabrication of Pre-Form](#fabrication-of-pre-form)
+      - [Chemical Processes](#chemical-processes)
+      - [Methods](#methods)
+      - [Modified Chemical Vapour Deposition](#modified-chemical-vapour-deposition)
+      - [Outside Vapour Deposition](#outside-vapour-deposition)
+    - [Drawing Fibre from the Pre-Form](#drawing-fibre-from-the-pre-form)
+    - [Fibre Bundle](#fibre-bundle)
 
 # 1.0 Introduction
 
@@ -84,3 +98,102 @@ $$
 ![Figure 3.0 - Step and Graded Index](assets/step-and-graded-index.png)
 
 # 2.0 Optical Fibre Fabrication
+
+## Common Materials
+
+### Glass
+
+- Fused silica glass (A.K.A silicate glass)
+- Currently, the most widely used material for telecommunication fibre
+- Low power losses
+- Chemically inert
+- Optically stable throughout material
+- High glass transition temperature
+
+### Halide Glass
+
+- Flouride glass
+- Low transmission losses at mid-infrared wavelengths
+- Composition: $ZrF_4$, and $BaF_2, LaF_3, AlF_3, NaF$
+- Under development for $2\mu m$ systems
+
+### Active Glass
+
+- Rare earth doped glass
+- $Er$/$Nd$/$Tm$ doped within fused silica
+- Used in optical fibre amplifiers, and fibre lasers
+
+### Chalcogenide Glass
+
+- Composition: $As_{40}S_{58}Se_2$ / $As_2S_3$
+- High optical non-linearity (long interaction length)
+- High losses (~$1 dBm^{-1}$)
+- Used in mid-infrared sources, fibre amplifiers, and switches
+
+### Polymer
+
+- Composition: Polymethyl methacrylate / perfluorinated polymer
+- High losses (~$0.2 dBm^{-1}$)
+- Cheap to manufacture
+- Light weight, and easy to install
+- Dimensionally large
+- Used in short distance communication (~$100 m$), sensing, and lighting
+
+## Fabrication
+
+### Fabrication of Pre-Form
+
+The Pre-Form determines the reflective index profile, geometry of core and cladding, and core concentricity. The quality determines the propagation characteristics of the final fibre.
+
+![Preform Fabrication with Doping Concentrations](assets/preform-fabrication-with-doping.png)
+
+**NOTE:** _$Germanium$ develops colour-centres, which absorbs ionising radiation. Hence, $Flourine$ is used as the cladding with undoped-core, when in an environment with ionising, nuclear radiation_
+
+#### Chemical Processes
+
+$$
+SiCl_4 + O_2 \rightarrow SiO_2 + 2Cl_2 \\
+GeCl_4 + O_2 \rightarrow GeO_2 + 2Cl_2 \\
+4POCl_3 + 3O_2 \rightarrow 2P_2O_5 + 6Cl_2 \\
+TiCl_4 + O_2 \rightarrow TiO_2 + 2Cl_2 \\
+4BCl_3 + 3O_2 \rightarrow 2B_2O_3 + 6Cl_2
+$$
+
+#### Methods
+
+| Flame Hydrolysis               | Chemical Vapour Deposition                  |
+| ------------------------------ | ------------------------------------------- |
+| Vapour Axial Deposition        | Modified Chemical Vapour Deposition         |
+| Outside Vapour Phase Oxidation | Plasma Modified Chemical Vapour Deposition  |
+| Outside Vapour Deposition      | Plasma Activated Chemical Vapour Deposition |
+
+#### Modified Chemical Vapour Deposition
+
+![Modified Chemical Vapour Deposition](./assets/modified-chemical-vapour-deposition.png)
+
+A gaseous mixture of reactants is fed at the end of a rotating, silica tube. The tube is heated by a traversing, oxi-hydrogen burner. Glass particles (soot) are deposited on the internal tube wall. A thin, glass layer is formed, as the soot is vitrified by the burner. Finally, the temperature of the burner is increased to ~$2000 \degree C$, in order for the tube to collapse into a solid preform.
+
+#### Outside Vapour Deposition
+
+![Outside Vapour Deposition](assets/outside-vapour-deposition.png)
+
+Layer by layer, soot is deposited on an aluminium oxide, or graphite, mandrel. After deposition, the central mandrel is removed. Finally, the hollow, porous preform is dehydrated and collapsed in an inert environment, through sintering.
+
+### Drawing Fibre from the Pre-Form
+
+![Fibre Drawing](assets/fibre-drawing.png)
+
+Using a precision-controlled, feeding mechanism, preform is lowered into the high-purity graphite furnace. Gravity draws the glass into a glob. Acrylic is coated on the fibre, and cured in a furnace, before the final diameter is measured. Finally, the fibre is wound on a drum.
+
+### Fibre Bundle
+
+**Coherent Bundle** - the relative positions of the fibres at the input and output are the same.
+
+- Image is not scrambled
+- Used in endoscopy
+
+**Incoherent Bundle** - the fibres are not aligned in a particular way.
+
+- Image is scrambled
+- Used as a coder or illumination
+- Decoded using a similar bundle
