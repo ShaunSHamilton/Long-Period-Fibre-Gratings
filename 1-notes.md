@@ -20,6 +20,11 @@
       - [Outside Vapour Deposition](#outside-vapour-deposition)
     - [Drawing Fibre from the Pre-Form](#drawing-fibre-from-the-pre-form)
     - [Fibre Bundle](#fibre-bundle)
+- [3.0 Transmission Characteristics](#30-transmission-characteristics)
+  - [Optical Attenuation](#optical-attenuation)
+    - [Loss Mechanisms](#loss-mechanisms)
+      - [Absorptive](#absorptive)
+      - [Radiative](#radiative)
 
 # 1.0 Introduction
 
@@ -197,3 +202,36 @@ Using a precision-controlled, feeding mechanism, preform is lowered into the hig
 - Image is scrambled
 - Used as a coder or illumination
 - Decoded using a similar bundle
+
+# 3.0 Transmission Characteristics
+
+## Optical Attenuation
+
+![Optical Attenuation](assets/optical-attenuation.png)
+
+$$
+Loss = 10 \log{(\frac{P_{in}}{P_{out}})}
+$$
+
+Loss Coefficient, $\alpha$, with $L$ in $m$:
+
+$$
+\alpha = \frac{10}{L} \log{(\frac{P_{in}}{P_{out}})}  dBm^{-1}
+$$
+
+### Loss Mechanisms
+
+#### Absorptive
+
+- Intrinsic - Absoption by primary constituent materials of fibre
+  - Caused by atomic vibration bands in the wavelength range (e.g. For $SiO_2$ near-IR region)
+  - A result of interaction between vibrating chemical bonds and electromagnetic fields of the light
+  - Electronic absoption bands in certain wavelength regions (e.g. For $SiO_2/Ge$ in ultra-violate region)
+- Extrinsic - due to absoption by impurities
+
+![Extrinsic Losses](assets/extrinsic-losses.png)
+
+#### Radiative
+
+- Rayleigh Scattering - Caused by small-scale inhomogeneities frozen into the fibre at the time of fabrication
+- Fresnel Reflection - Power reflected back into the fibre at the output end
