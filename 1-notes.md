@@ -25,6 +25,11 @@
     - [Loss Mechanisms](#loss-mechanisms)
       - [Absorptive](#absorptive)
       - [Radiative](#radiative)
+      - [Rayleigh Scattering](#rayleigh-scattering)
+      - [Fresnel Reflection](#fresnel-reflection)
+  - [Pulse Broadening](#pulse-broadening)
+    - [Gaussian Pulse](#gaussian-pulse)
+    - [Intermodal Dispersion](#intermodal-dispersion)
 
 # 1.0 Introduction
 
@@ -44,12 +49,14 @@ In the above, field patterns which are sustained throughout the length of the fi
 In the above, the random field pattern is fully within the one medium (core) of the fibre. This means the velocity can be described as:
 
 $$
+\tag{1}
 v = \frac{c}{n}
 $$
 
 The second section shows an example of when a mode propagates partially in the core, and partially in the cladding. The effective refractive index is described with:
 
 $$
+\tag{2}
 n_2 < n_{eff} < n_1
 $$
 
@@ -71,13 +78,8 @@ For a given core and cladding radius, the number of modes depends on the numeric
 Integrating the above parameters gives the _normalised frequency_:
 
 $$
-V = \frac{2\pi}{\lambda_0}aA_N
-$$
-
-_where_
-
-$$
-A_N=\sqrt{n_1^2-n_2^2}
+\tag*{where $A_N=\sqrt{n_1^2-n_2^2} \qquad (3)$}
+V = \frac{2\pi}{\lambda_0}aA_N \kern{10em}
 $$
 
 ## Single-Mode and Multi-Mode Fibres (SMF & MMF)
@@ -157,11 +159,14 @@ The Pre-Form determines the reflective index profile, geometry of core and cladd
 #### Chemical Processes
 
 $$
+
 SiCl_4 + O_2 \rightarrow SiO_2 + 2Cl_2 \\
 GeCl_4 + O_2 \rightarrow GeO_2 + 2Cl_2 \\
 4POCl_3 + 3O_2 \rightarrow 2P_2O_5 + 6Cl_2 \\
 TiCl_4 + O_2 \rightarrow TiO_2 + 2Cl_2 \\
 4BCl_3 + 3O_2 \rightarrow 2B_2O_3 + 6Cl_2
+
+
 $$
 
 #### Methods
@@ -210,12 +215,14 @@ Using a precision-controlled, feeding mechanism, preform is lowered into the hig
 ![Optical Attenuation](assets/optical-attenuation.png)
 
 $$
+\tag{4}
 Loss = 10 \log{(\frac{P_{in}}{P_{out}})}
 $$
 
 Loss Coefficient, $\alpha$, with $L$ in $m$:
 
 $$
+\tag{5}
 \alpha = \frac{10}{L} \log{(\frac{P_{in}}{P_{out}})}  dBm^{-1}
 $$
 
@@ -235,3 +242,60 @@ $$
 
 - Rayleigh Scattering - Caused by small-scale inhomogeneities frozen into the fibre at the time of fabrication
 - Fresnel Reflection - Power reflected back into the fibre at the output end
+
+#### Rayleigh Scattering
+
+Scattering in pure, fused silica:
+
+$$
+\tag{6}
+\alpha (\lambda) = \alpha_{0} (\frac{\lambda_0}{\lambda})^4
+$$
+
+#### Fresnel Reflection
+
+$$
+\tag{7}
+\text{Reflected Power} = \frac{(n_1-n_0)^2}{(n_1+n_0)^2}
+$$
+
+## Pulse Broadening
+
+### Gaussian Pulse
+
+$$
+\tag{8}
+P(t, z=0) = P_0 e^{-\frac{2(t-t_0)^2}{\tau_0^2}}
+$$
+
+$$
+\tag*{where $\tau^2 = \tau_0^2 + \Delta \tau^2$ \qquad (9)}
+P(t, z) = \frac{\tau_0 P_0}{\tau} e^{-\frac{2(t-t_z)^2}{\tau^2}} \kern{10em}
+$$
+
+### Intermodal Dispersion
+
+![Intermodal Dispersion](assets/intermodal-dispersion.png)
+
+$$
+\tag{10}
+t = \frac{AC + CB}{c/n_1} \\
+AC\cos{\theta} = \frac{AB}{2}, \qquad CB\cos{\theta} = \frac{AB}{2} \\
+AC + CB = \frac{AB}{\cos{\theta}} \\
+t = \frac{n_1L}{c\cos{\theta}} \Rightarrow t = \frac{n_1AB}{c\cos{\theta}}
+$$
+
+Total Internal Reflection: $\theta : 0 < \theta < \theta_c$
+
+$$
+\tag{11}
+t_{min} = n_1\frac{L}{c} \mid_{\theta = 0}
+$$
+
+$$
+\tag{12}
+\begin{aligned}
+t_{max} &= n_1\frac{L}{c\cos{\theta_c}} \mid_{\theta = \theta_c} \\
+&= \frac{n_1^2L}{cn_2}
+\end{aligned}
+$$
