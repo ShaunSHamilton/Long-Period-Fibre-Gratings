@@ -1,0 +1,29 @@
+* {
+  padding: 0;
+  margin: 0;
+  background-color: var(--color-background);
+  overflow: hidden;
+}
+
+:root {
+  --color-text: rgb(203, 255, 246);
+  --color-background: #111;
+  --padding-box: 1em;
+  --padding-text: 1em;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+}
+
+a {
+  font-size: 3em;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--color-text);
+  padding: var(--padding-text);
+}

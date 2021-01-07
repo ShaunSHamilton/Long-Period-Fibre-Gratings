@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="index.css">
+<nav>
+  <a href="/long-period-fibre-gratings/logbook.html">Logbook</a>
+  <a href="/long-period-fibre-gratings/1-notes.html">Notes</a>
+</nav>
+
 # Fibre Optics - Modes of a Fibre <!-- omit in toc -->
 
 ## Table of Contents <!-- omit in toc -->
@@ -299,3 +305,10 @@ t_{max} &= n_1\frac{L}{c\cos{\theta_c}} \mid_{\theta = \theta_c} \\
 &= \frac{n_1^2L}{cn_2}
 \end{aligned}
 $$
+
+---
+
+<footer>
+  <p>Majority of content comes from XoviabECE: Fiber Optics - NPTEL Online Certification Course</p>
+  <p>As interpretted and summated by Shaun Hamilton</p>
+</footer>

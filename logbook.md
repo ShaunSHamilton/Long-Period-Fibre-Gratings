@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="index.css">
+<nav>
+  <a href="/long-period-fibre-gratings/logbook.html">Logbook</a>
+  <a href="/long-period-fibre-gratings/1-notes.html">Notes</a>
+</nav>
+
 # Logbook <!-- omit in toc -->
 
 - [Dates](#dates)
