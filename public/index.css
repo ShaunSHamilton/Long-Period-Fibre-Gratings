@@ -1,13 +1,13 @@
-* {
-  background-color: var(--color-background);
-  color: var(--color-text);
-}
-
 :root {
   --color-text: rgb(203, 255, 246);
   --color-background: #111;
   --padding-box: 1em;
   --padding-text: 1em;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 nav {
@@ -22,4 +22,11 @@ nav {
 
 nav > a {
   font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+li > a {
+  text-decoration: none;
+  color: var(--color-text);
 }
