@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/long-period-fibre-gratings/static/css/main.ce6cf6be.chunk.css",
-    "main.js": "/long-period-fibre-gratings/static/js/main.e735dce5.chunk.js",
-    "main.js.map": "/long-period-fibre-gratings/static/js/main.e735dce5.chunk.js.map",
-    "runtime-main.js": "/long-period-fibre-gratings/static/js/runtime-main.439295f7.js",
-    "runtime-main.js.map": "/long-period-fibre-gratings/static/js/runtime-main.439295f7.js.map",
-    "static/js/2.64e341f7.chunk.js": "/long-period-fibre-gratings/static/js/2.64e341f7.chunk.js",
-    "static/js/2.64e341f7.chunk.js.map": "/long-period-fibre-gratings/static/js/2.64e341f7.chunk.js.map",
-    "index.html": "/long-period-fibre-gratings/index.html",
-    "static/css/main.ce6cf6be.chunk.css.map": "/long-period-fibre-gratings/static/css/main.ce6cf6be.chunk.css.map",
-    "static/js/2.64e341f7.chunk.js.LICENSE.txt": "/long-period-fibre-gratings/static/js/2.64e341f7.chunk.js.LICENSE.txt"
+    "main.css": "/Long-Period-Fibre-Gratings/static/css/main.ce6cf6be.chunk.css",
+    "main.js": "/Long-Period-Fibre-Gratings/static/js/main.77ad3520.chunk.js",
+    "main.js.map": "/Long-Period-Fibre-Gratings/static/js/main.77ad3520.chunk.js.map",
+    "runtime-main.js": "/Long-Period-Fibre-Gratings/static/js/runtime-main.b4eeb853.js",
+    "runtime-main.js.map": "/Long-Period-Fibre-Gratings/static/js/runtime-main.b4eeb853.js.map",
+    "static/js/2.64e341f7.chunk.js": "/Long-Period-Fibre-Gratings/static/js/2.64e341f7.chunk.js",
+    "static/js/2.64e341f7.chunk.js.map": "/Long-Period-Fibre-Gratings/static/js/2.64e341f7.chunk.js.map",
+    "index.html": "/Long-Period-Fibre-Gratings/index.html",
+    "static/css/main.ce6cf6be.chunk.css.map": "/Long-Period-Fibre-Gratings/static/css/main.ce6cf6be.chunk.css.map",
+    "static/js/2.64e341f7.chunk.js.LICENSE.txt": "/Long-Period-Fibre-Gratings/static/js/2.64e341f7.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.439295f7.js",
+    "static/js/runtime-main.b4eeb853.js",
     "static/js/2.64e341f7.chunk.js",
     "static/css/main.ce6cf6be.chunk.css",
-    "static/js/main.e735dce5.chunk.js"
+    "static/js/main.77ad3520.chunk.js"
   ]
 }
