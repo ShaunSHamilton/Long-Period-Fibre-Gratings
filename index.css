@@ -1,0 +1,25 @@
+* {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+:root {
+  --color-text: rgb(203, 255, 246);
+  --color-background: #111;
+  --padding-box: 1em;
+  --padding-text: 1em;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+nav > a {
+  font-size: 1.5rem;
+}
