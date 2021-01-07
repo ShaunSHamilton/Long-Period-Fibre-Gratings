@@ -5,8 +5,8 @@ const App = () => {
   return (
     <main>
       <nav>
-        <a href="/long-period-fibre-gratings/logbook.html">Logbook</a>
-        <a href="/long-period-fibre-gratings/1-notes.html">Notes</a>
+        <a href="/Long-Period-Fibre-Gratings/logbook.html">Logbook</a>
+        <a href="/Long-Period-Fibre-Gratings/1-notes.html">Notes</a>
       </nav>
     </main>
   );
