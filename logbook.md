@@ -38,21 +38,28 @@
 ### Supervisor Questions
 
 - Harvard Referencing, or Numbered Referencing?
-- Current student paper code is horribly formatted (and in Python), might I as well start from scratch?
+- Previous student's paper code is horribly formatted (and in Python), might I as well start from scratch?
+- Fibre or Fiber? (Do you care...)
+- Literary Review
+  - How much detail should I go into w.r.t. basics of optical light transmission?
+  - How much of the previous student's paper should be reviewed if we are replicating results? (I would imagine this belongs more in the discussion/evaluation)
 
 ### Report Progress
 
-- Some
+- Prelim report submitted
 
 ### Notes Progress
 
-- Some
+- Introduction Complete - Single-Mode and Multi-Mode
 
 ## 28/12/2020
 
 ### Report Progress
 
-- Some
+- Interim Report Started
+  - Cleaned up spelling mistakes from prelim
+  - Added Layout
+  - Included Literary Review
 
 ### Notes Progress
 
@@ -62,7 +69,8 @@
 
 ### Report Progress
 
-- Some
+- Final Report
+  - Added full layout
 
 ### Notes Progress
 
@@ -85,11 +93,7 @@
 
 ### Report Progress
 
-- Some
-
 ### Notes Progress
-
-- Some
 
 ## 25/01/2021
 
@@ -123,5 +127,5 @@
   - Evaluation
     - Remember **ERRORS** relating to rounding
 
-- Contact Bernd Porr
+- Bernd Porr (FYP Advisor)
   - bernd.porr@glasgow.ac.uk
