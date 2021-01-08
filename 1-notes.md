@@ -48,7 +48,7 @@ For transmitting light through a fibre, modal analysis is needed to optomise the
 The first field pattern is random, and is not uniform throughout the length of the fibre.
 In the above, field patterns which are sustained throughout the length of the fibre is called a mode of the fibre. The velocity of each mode can be unique.
 
-**NOTE:** _Is the velocity of each mode unique? Or, can the light field have a different pattern, but the same velocity profile?_
+**NOTE:** _Is the velocity of each mode unique? (Effective refractive index) Or, can the light field have a different pattern, but the same velocity profile?_
 
 ![Figure 2.0 - Mode in Core and Cladding](assets/mode-in-core-and-cladding.png)
 

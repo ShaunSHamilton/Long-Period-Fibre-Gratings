@@ -5,7 +5,8 @@
         <title>Logbook &lt;&excl;-- omit in toc --&gt;</title>
         <style>
 </style>
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
@@ -19,7 +20,7 @@
 .task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
         
-        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
         
     </head>
     <body class="vscode-body vscode-light">
@@ -49,6 +50,7 @@
 <ul>
 <li><a href="#report-progress-2">Report Progress</a></li>
 <li><a href="#notes-progress-2">Notes Progress</a></li>
+<li><a href="#meeting-08012021">Meeting (08/01/2021)</a></li>
 </ul>
 </li>
 <li><a href="#11012021">11/01/2021</a>
@@ -80,13 +82,30 @@
 <h2 id="20122020">20/12/2020</h2>
 <h3 id="supervisor-questions">Supervisor Questions</h3>
 <ul>
-<li>Harvard Referencing, or Numbered Referencing?</li>
-<li>Previous student's paper code is horribly formatted (and in Python), might I as well start from scratch?</li>
-<li>Fibre or Fiber? (Do you care...)</li>
+<li>Harvard Referencing, or Numbered Referencing?
+<ul>
+<li>Numbered</li>
+</ul>
+</li>
+<li>Previous student's paper code is horribly formatted (and in Python), might I as well start from scratch?
+<ul>
+<li>Start afresh</li>
+</ul>
+</li>
+<li>Fibre or Fiber? (Do you care...)
+<ul>
+<li>British - Fibre</li>
+</ul>
+</li>
 <li>Literary Review
 <ul>
 <li>How much detail should I go into w.r.t. basics of optical light transmission?</li>
-<li>How much of the previous student's paper should be reviewed if we are replicating results? (I would imagine this belongs more in the discussion/evaluation)</li>
+<li>How much of the previous student's paper should be reviewed if we are replicating results? (I would imagine this belongs more in the discussion/evaluation)
+<ul>
+<li>Tell the story of how I got to where I am now. How original gratings are made...how they are made...now at a point of different materials...context</li>
+<li>Hold hand in introduction for non-optics specialists...explain to a student collegue</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -126,6 +145,83 @@
 <ul>
 <li>Added Chapter 2: Fabrication</li>
 <li>Added Chapter 3: Transmission Characteristics</li>
+</ul>
+<h3 id="meeting-08012021">Meeting (08/01/2021)</h3>
+<ul>
+<li>
+<p>Weekly/Bi-weekly updates to JS</p>
+</li>
+<li>
+<p>If stuck, ask for references</p>
+</li>
+<li>
+<p>Look into phase matching specifically for LPFGs</p>
+</li>
+<li>
+<p>Mention fabrication methods - UoG change diametre rather than <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span></p>
+</li>
+<li>
+<p>MATLAB has easier to use, included functions than vanilla bi-section method</p>
+</li>
+<li>
+<p>Compare time it takes to calculate modes from previous student paper to my use of MATLAB</p>
+<ul>
+<li>Number of operations to find <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span></li>
+<li>Built-in functions faster than vanila methods?</li>
+<li>Not a Python vs MATLAB comparison!</li>
+<li>Use same values previous user used</li>
+</ul>
+</li>
+<li>
+<p>LPG Glass fibres...then move on to Saffire fibres</p>
+</li>
+<li>
+<p>Validate whether saffire vs glass is correct for same mathematics</p>
+</li>
+<li>
+<p>Move on to cladding</p>
+<ul>
+<li>Which mode causes <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi></mrow></msub></mrow><annotation encoding="application/x-tex">n_{eff}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> couple phases</li>
+</ul>
+</li>
+<li>
+<p>How much power travels through fibre</p>
+</li>
+<li>
+<p>Look into V (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Λ</mi></mrow><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Λ</span></span></span></span>) number</p>
+</li>
+<li>
+<p>Calculate Sellmeir</p>
+</li>
+<li>
+<p>Calculate <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi></mrow></msub></mrow><annotation encoding="application/x-tex">n_{eff}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> in Core</p>
+</li>
+<li>
+<p>Calculate <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi></mrow></msub></mrow><annotation encoding="application/x-tex">n_{eff}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> in Cladding</p>
+</li>
+</ul>
+<p>Assumptions</p>
+<ul>
+<li>
+<p>Experiment with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>100</mn><mi>T</mi></mrow><annotation encoding="application/x-tex">\leq100T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span> gratings - to validate</p>
+</li>
+<li>
+<p>How long to make the grating?</p>
+</li>
+<li>
+<p>Linear-Polerised mode (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">LP</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span>)</p>
+</li>
+<li>
+<p>Look at number of periods vs power loss</p>
+</li>
+<li>
+<p>HE modes: H - magnetic, E - electric</p>
+</li>
+</ul>
+<p>To evaluate paper</p>
+<ul>
+<li>How sensitive is this to parameters</li>
+<li>Journey of research - How can this be expanded into Saffire or HE modes</li>
 </ul>
 <h2 id="11012021">11/01/2021</h2>
 <h3 id="report-progress-3">Report Progress</h3>

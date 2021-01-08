@@ -17,6 +17,7 @@
   - [04/01/2021](#04012021)
     - [Report Progress](#report-progress-2)
     - [Notes Progress](#notes-progress-2)
+    - [Meeting (08/01/2021)](#meeting-08012021)
   - [11/01/2021](#11012021)
     - [Report Progress](#report-progress-3)
     - [Notes Progress](#notes-progress-3)
@@ -38,11 +39,16 @@
 ### Supervisor Questions
 
 - Harvard Referencing, or Numbered Referencing?
+  - Numbered
 - Previous student's paper code is horribly formatted (and in Python), might I as well start from scratch?
+  - Start afresh
 - Fibre or Fiber? (Do you care...)
+  - British - Fibre
 - Literary Review
   - How much detail should I go into w.r.t. basics of optical light transmission?
   - How much of the previous student's paper should be reviewed if we are replicating results? (I would imagine this belongs more in the discussion/evaluation)
+    - Tell the story of how I got to where I am now. How original gratings are made...how they are made...now at a point of different materials...context
+    - Hold hand in introduction for non-optics specialists...explain to a student collegue
 
 ### Report Progress
 
@@ -76,6 +82,43 @@
 
 - Added Chapter 2: Fabrication
 - Added Chapter 3: Transmission Characteristics
+
+### Meeting (08/01/2021)
+
+- Weekly/Bi-weekly updates to JS
+- If stuck, ask for references
+- Look into phase matching specifically for LPFGs
+- Mention fabrication methods - UoG change diametre rather than $n$
+- MATLAB has easier to use, included functions than vanilla bi-section method
+- Compare time it takes to calculate modes from previous student paper to my use of MATLAB
+  - Number of operations to find $b$
+  - Built-in functions faster than vanila methods?
+  - Not a Python vs MATLAB comparison!
+  - Use same values previous user used
+- LPG Glass fibres...then move on to Saffire fibres
+- Validate whether saffire vs glass is correct for same mathematics
+- Move on to cladding
+  - Which mode causes $n_{eff}$ couple phases
+- How much power travels through fibre
+- Look into V ($\Lambda$) number
+
+- Calculate Sellmeir
+- Calculate $n_{eff}$ in Core
+- Calculate $n_{eff}$ in Cladding
+
+Assumptions
+
+- Experiment with $\leq100T$ gratings - to validate
+- How long to make the grating?
+- Linear-Polerised mode ($LP$)
+- Look at number of periods vs power loss
+
+- HE modes: H - magnetic, E - electric
+
+To evaluate paper
+
+- How sensitive is this to parameters
+- Journey of research - How can this be expanded into Saffire or HE modes
 
 ## 11/01/2021
 
