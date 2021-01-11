@@ -124,11 +124,17 @@ To evaluate paper
 
 ### Report Progress
 
-- Some
+- Introduction ✔️
+- Literary Review ✔️
+- Methodology ✖️
+- Results ✖️
+- Prelimenary Conclusion ✖️
+- TODO Outline ✖️
+- Health and Safety ✔️
 
 ### Notes Progress
 
-- Some
+- Added Chapter 4: Optical Fibre Gratings
 
 ## 18/01/2021
 
