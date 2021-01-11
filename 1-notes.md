@@ -303,13 +303,13 @@ Total Internal Reflection: $\theta : 0 < \theta < \theta_c$
 
 $$
 \tag{11}
-t_{min} = n_1\frac{L}{c} \mid_{\theta = 0}
+t_{\min} = n_1\frac{L}{c} \mid_{\theta = 0}
 $$
 
 $$
 \tag{12}
 \begin{aligned}
-t_{max} &= n_1\frac{L}{c\cos{\theta_c}} \mid_{\theta = \theta_c} \\
+t_{\max} &= n_1\frac{L}{c\cos{\theta_c}} \mid_{\theta = \theta_c} \\
 &= \frac{n_1^2L}{cn_2}
 \end{aligned}
 $$
@@ -360,8 +360,8 @@ If $A(z)$ and $B(z)$ are the amplitudes of forward and backward propagating mode
 $$
 \tag{17}
 \begin{aligned}
-\frac{dA}{dz} &= \kappa B e^{\imath \Gamma z} \\
-\frac{dB}{dz} &= \kappa A e^{-\imath \Gamma z} \kern{10em}
+\frac{dA}{dz} &= \kappa B e^{i\Gamma z} \\
+\frac{dB}{dz} &= \kappa A e^{-i\Gamma z} \kern{10em}
 \end{aligned}
 $$
 
@@ -371,7 +371,7 @@ If $\Delta n_z^2(x,y,z) = n^2(x,y)+\Delta n_0^2\sin{Kz}$ represents the refracti
 
 $$
 \tag{18}
-\kappa = \frac{\omega \epsilon_0}{8} \iint \psi^* \Delta n^2(x,y)\psi dx dy \kern{10em}
+\kappa = \frac{\omega \epsilon_0}{8} \iint \psi^* \Delta n^2(x,y)\psi \; dx dy \kern{10em}
 $$
 
 _where $\psi$ - normalized modal field_
@@ -380,10 +380,10 @@ For a single mode fibre with Gaussian approximation, the overlap integral:
 
 $$
 \tag{19}
-I \approx 1 - e^{-2a^2/w^2} \kern{2em} \kern{10em}
+I \approx 1 - e^{-2a^2/w^2}
 $$
 
-\_<div style="text-align: right">where $a$ - core radius, $w$ - Gaussian spot size of mode</div>
+_<div style="text-align: right">where $a$ - core radius, $w$ - Gaussian spot size of mode</div>_
 
 $$
 \tag{20}
