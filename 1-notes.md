@@ -36,6 +36,12 @@
   - [Pulse Broadening](#pulse-broadening)
     - [Gaussian Pulse](#gaussian-pulse)
     - [Intermodal Dispersion](#intermodal-dispersion)
+- [4.0 Optical Fibre Gratings](#40-optical-fibre-gratings)
+  - [Fibre Bragg Gratings](#fibre-bragg-gratings)
+    - [Coupled Mode Theory](#coupled-mode-theory)
+    - [Reflectivity](#reflectivity)
+    - [Spectral Width](#spectral-width)
+  - [Long Period Gratings](#long-period-gratings)
 
 # 1.0 Introduction
 
@@ -275,9 +281,11 @@ P(t, z=0) = P_0 e^{-\frac{2(t-t_0)^2}{\tau_0^2}}
 $$
 
 $$
-\tag*{where $\tau^2 = \tau_0^2 + \Delta \tau^2$ \qquad (9)}
+\tag{9}
 P(t, z) = \frac{\tau_0 P_0}{\tau} e^{-\frac{2(t-t_z)^2}{\tau^2}} \kern{10em}
 $$
+
+_<div style="text-align: right">where $\tau^2 = \tau_0^2 + \Delta \tau^2$</div>_
 
 ### Intermodal Dispersion
 
@@ -305,6 +313,110 @@ t_{max} &= n_1\frac{L}{c\cos{\theta_c}} \mid_{\theta = \theta_c} \\
 &= \frac{n_1^2L}{cn_2}
 \end{aligned}
 $$
+
+# 4.0 Optical Fibre Gratings
+
+## Fibre Bragg Gratings
+
+![Fibre Bragg Grating - Constructive Reflection](assets/fibre-bragg-constructive-reflection.png)
+
+Condition for strong reflection
+
+$$
+\tag{13}
+\begin{aligned}
+\Delta \phi_{ab} &= \pi - \frac{2\pi}{\lambda_0}(n_0 + \Delta n_0)\Lambda \\
+\Delta \phi_{bc} &= \pi + \frac{2\pi}{\lambda_0}(n_0 - \Delta n_0)\Lambda
+\end{aligned}
+$$
+
+For constructive interference at $\lambda_B$ between waves $a$, $b$, and $c$
+
+$$
+\tag{14}
+\Delta \phi_{bc} - \Delta \phi_{ab} = 2\pi \Rightarrow \lambda_B = 2n_0\Lambda
+$$
+
+_<div style="text-align: right">where $\Delta n_0 \ll n_0$</div>_
+
+### Coupled Mode Theory
+
+The Fibre Bragg gratings act as pertubations which enable the coupling of light between the forward and backward propagating modes
+
+$$
+\tag{15}
+\beta^+ = \beta^- = \beta = \frac{2\pi}{\lambda_0}n_{eff} \kern{1em}\text{and}\kern{1em} K = \frac{2\pi}{\Lambda}
+$$
+
+With phase-matching at wavelength $\lambda_B$
+
+$$
+\tag{16}
+2\frac{2\pi}{\lambda_B}n_{eff} = \frac{2\pi}{\Lambda} \Rightarrow \lambda_B = 2n_{eff}\Lambda
+$$
+
+If $A(z)$ and $B(z)$ are the amplitudes of forward and backward propagating modes:
+
+$$
+\tag{17}
+\begin{aligned}
+\frac{dA}{dz} &= \kappa B e^{\imath \Gamma z} \\
+\frac{dB}{dz} &= \kappa A e^{-\imath \Gamma z} \kern{10em}
+\end{aligned}
+$$
+
+_<div style="text-align: right">where $\Gamma = 2\beta-K$</div>_
+
+If $\Delta n_z^2(x,y,z) = n^2(x,y)+\Delta n_0^2\sin{Kz}$ represents the refractive index variation in the grating
+
+$$
+\tag{18}
+\kappa = \frac{\omega \epsilon_0}{8} \iint \psi^* \Delta n^2(x,y)\psi dx dy \kern{10em}
+$$
+
+_where $\psi$ - normalized modal field_
+
+For a single mode fibre with Gaussian approximation, the overlap integral:
+
+$$
+\tag{19}
+I \approx 1 - e^{-2a^2/w^2} \kern{2em} \kern{10em}
+$$
+
+\_<div style="text-align: right">where $a$ - core radius, $w$ - Gaussian spot size of mode</div>
+
+$$
+\tag{20}
+\therefore \kappa \approx \frac{\pi \Delta n_0 I}{\lambda_B}
+$$
+
+### Reflectivity
+
+$$
+\tag{21}
+R = \frac{\kappa^2 \sinh^2(\gamma L)}{\gamma^2 \cosh^2(\gamma L) + \frac{\Gamma^2}{4}\sinh^2(\gamma L)}
+$$
+
+_<div style="text-align: right">where $\gamma^2 = \kappa^2 - \Gamma^2/4$</div>_
+
+At Bragg wavelength $\lambda_B$:
+
+$$
+\tag{22}
+2\beta = K \Rightarrow \Gamma = 0 \text{and } \gamma = \kappa \\
+\rightarrow R = \tanh^2(\kappa L)
+$$
+
+![Normalised Power as Kappa Varies](assets/normalized-power-as-kappa-varies.png)
+
+### Spectral Width
+
+$$
+\tag{23}
+\Delta \lambda = \frac{\lambda_B^2}{n_{eff}L}\sqrt{1+\frac{\kappa^2L^2}{\pi^2}}
+$$
+
+## Long Period Gratings
 
 ---
 
