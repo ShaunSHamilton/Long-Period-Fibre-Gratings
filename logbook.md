@@ -21,7 +21,9 @@
   - [11/01/2021](#11012021)
     - [Report Progress](#report-progress-3)
     - [Notes Progress](#notes-progress-3)
+    - [Miscellaneous](#miscellaneous)
   - [18/01/2021](#18012021)
+    - [Supervisor Questions](#supervisor-questions-1)
     - [Report Progress](#report-progress-4)
     - [Notes Progress](#notes-progress-4)
   - [25/01/2021](#25012021)
@@ -29,7 +31,7 @@
   - [08/02/2021](#08022021)
   - [15/02/2021](#15022021)
   - [22/02/2021](#22022021)
-- [Miscellaneous](#miscellaneous)
+- [Miscellaneous](#miscellaneous-1)
   - [Report Writing](#report-writing)
 
 # Dates
@@ -126,19 +128,36 @@ To evaluate paper
 
 - Introduction ✔️
 - Literary Review ✔️
-- Methodology ✖️
+- Methodology ✔️
 - Results ✖️
 - Prelimenary Conclusion ✖️
-- TODO Outline ✖️
+- TODO Outline ✔️
 - Health and Safety ✔️
 
 ### Notes Progress
 
 - Added Chapter 4: Optical Fibre Gratings
 
+### Miscellaneous
+
+[Effective Refractive Index described in StackExchange](https://physics.stackexchange.com/questions/135978/effective-refractive-index-calculation-of-fiber-core)
+
 ## 18/01/2021
 
 - **Interim Report Due**
+
+### Supervisor Questions
+
+- Why specific parameters? Does it relate to work being done at UoG
+  - 3.1% $GeO_2$
+  - Should I limit the work to $1300nm < \lambda 1600nm$, as the previous work, and why?
+- Previous work pulls equations out of thin air, and I am struggling to verify them
+  - Can I take them at their word?
+  - Are these resources my _best-bet_ to derive the equations needed? (I have access to the book)
+    - ISBN 13:978-0-12-088481-0
+    - ISBN 10: 0-12-088481-X
+    - University of Colerado: Modal Analysis of Step-Index Fibres
+- Previous work's power modes **(TODO: improve question formulation)**
 
 ### Report Progress
 

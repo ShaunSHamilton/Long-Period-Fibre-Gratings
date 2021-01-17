@@ -42,6 +42,8 @@
     - [Reflectivity](#reflectivity)
     - [Spectral Width](#spectral-width)
   - [Long Period Gratings](#long-period-gratings)
+- [5.0 Effective Optical Properties of Nanoporous Materials](#50-effective-optical-properties-of-nanoporous-materials)
+  - [Background](#background)
 
 # 1.0 Introduction
 
@@ -417,6 +419,14 @@ $$
 $$
 
 ## Long Period Gratings
+
+# 5.0 Effective Optical Properties of Nanoporous Materials
+
+## Background
+
+As previsouly mentioned, the optical properties of thin films can be tuned by introducing nanopores with different shape, size, and spatial distribution. The complex index of refraction ($m=n-ik$) of nanoporous thin films with various morphologies can be determined for incident electromagnetic waves by numerically solving Maxwell's equations. Here, n is the index of refraction and k is the absorption index. Polarization of an incident electromagnetic wave describes the direction of the electric field with respect to the plane of incidence defined by the Poynting vector and the normal vector of the surface on which it is incident. In transverse electric (TE) plane waves, the electric field is perpendicular to the plane of incidence while it is in that plane for transverse magnetic (TM) plane waves. Any arbitrary plane wave can be described as some combination of TE and TM waves. For a dense homogeneous film, the normal vector of the surface and the Poynting vector are collinear such that the plane of incidence and hence polarization cannot be defined. For a heterogeneous film such as the films considered here, the normal vector is no longer collinear with the Poynting vector allowing polarization to be defined that causes changes in transmittance and reflectance. The numerical results can then be compared with predictions from widely used effective medium approximations (EMAs).
+
+![Effective Medium Approximations](assets/EMAs.jpg)
 
 ---
 
