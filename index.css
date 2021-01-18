@@ -3,6 +3,10 @@
   --color-background: #111;
   --padding-box: 1em;
   --padding-text: 1em;
+  --code-keyword: #09ff45;
+  --code-title: #ef4343;
+  --code-number: #5ac5f3;
+  --code-built-in: #53e1c4;
 }
 
 body {
@@ -29,4 +33,26 @@ nav > a {
 li > a {
   text-decoration: none;
   color: var(--color-text);
+}
+
+/* Undo vs-code */
+
+.vscode-light pre {
+  background-color: var(--color-background) !important;
+}
+
+.hljs-number {
+  color: var(--code-number) !important;
+}
+
+.hljs-keyword {
+  color: var(--code-keyword) !important;
+}
+
+.hljs-title {
+  color: var(--code-title) !important;
+}
+
+.hljs-built_in {
+  color: var(--code-built-in) !important;
 }
