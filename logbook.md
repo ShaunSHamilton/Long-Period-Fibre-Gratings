@@ -153,8 +153,8 @@ To evaluate paper
   - Should I limit the work to $1300nm < \lambda 1600nm$, as the previous work, and why?
 - Previous work pulls equations out of thin air, and I am struggling to verify them
   - Can I take them at their word?
-  - Are these resources my _best-bet_ to derive the equations needed? (I have access to the book)
-    - ISBN 13:978-0-12-088481-0
+  - Are these resources my _best-bet_ to derive the equations needed?
+    - ISBN 13:978-0-12-088481-0 (I have access to the book)
     - ISBN 10: 0-12-088481-X
     - University of Colerado: Modal Analysis of Step-Index Fibres
 - Previous work's power modes **(TODO: improve question formulation)**
