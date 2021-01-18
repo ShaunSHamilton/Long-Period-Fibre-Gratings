@@ -11,6 +11,7 @@
   --padding-box: 1em;
   --padding-text: 1em;
   --code-keyword: #09ff45;
+  --code-title: #ef4343;
   --code-number: #5ac5f3;
   --code-built-in: #53e1c4;
 }
@@ -34,25 +35,21 @@ a {
 /* Undo vs-code */
 
 .vscode-light pre {
-  background-color: var(--color-background);
+  background-color: var(--color-background) !important;
 }
 
-/* .vscode-light .hljs-keyword,
-.vscode-light .hljs-selector-tag,
-.vscode-light .hljs-name,
-.vscode-light .hljs-tag {
-  color: var(--code-keyword);
+.hljs-number {
+  color: var(--code-number) !important;
 }
 
-.vscode-light .hljs-comment,
-.vscode-light .hljs-quote,
-.vscode-light .hljs-number,
-.vscode-light .hljs-class,
-.vscode-light .hljs-variable {
-  color: var(--code-number);
+.hljs-keyword {
+  color: var(--code-keyword) !important;
 }
 
-.vscode-light .hljs-built_in,
-.vscode-light .hljs-builtin-name {
-  color: var(--code-built-in);
-} */
+.hljs-title {
+  color: var(--code-title) !important;
+}
+
+.hljs-built_in {
+  color: var(--code-built-in) !important;
+}
