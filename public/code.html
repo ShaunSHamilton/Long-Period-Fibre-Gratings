@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <link rel="stylesheet" href="index.css">
+<nav>
+  <a href="/Long-Period-Fibre-Gratings/logbook.html">Logbook</a>
+  <a href="/Long-Period-Fibre-Gratings/1-notes.html">Notes</a>
+  <a href="/Long-Period-Fibre-Gratings/code.html">Code</a>
+</nav>
+<pre><code class="language-cpp"><div>% -------------------------------
+% Analysis of Grating-Based Optical Sensors in Extreme Environments
+% Author: Shaun Hamilton
+% -------------------------------
+
+% -------------------------------
+% DEFINITIONS
+% -------------------------------
+
+% n_1 - refractive index of core
+% n_2 - refractive index of cladding
+% n_3 - refractive index of surrounding medium
+
+% lambda - wavelength of light
+
+% r_1 - radius of core
+% r_2 - radius of cladding
+
+% b - normalised effective index
+
+% B, C - Sellmeier Coefficient
+
+% FUNCTIONS ---------------------
+
+% V = (lambda: <span class="hljs-keyword">float</span>, n_1: <span class="hljs-keyword">float</span>, n_2: <span class="hljs-keyword">float</span>) =&gt; <span class="hljs-keyword">float</span> - normalised frequency
+% J = (alpha: <span class="hljs-keyword">int</span>, z: <span class="hljs-keyword">float</span>) =&gt; <span class="hljs-keyword">float</span> - Bessel function of the first kind
+% Y = (alpha: <span class="hljs-keyword">int</span>, z: <span class="hljs-keyword">float</span>) =&gt; <span class="hljs-keyword">float</span> - Bessel function of the second kind
+
+% Sellmeier = (lambda: <span class="hljs-keyword">float</span>, coefficients: [floats]) =&gt; <span class="hljs-keyword">float</span> - Sellmeier equation
+
+% -------------------------------
+
+% -------------------------------
+% GLOBAL VARIABLES
+% -------------------------------
+
+r_1 = <span class="hljs-number">4.15E-6</span>;
+r_2 = <span class="hljs-number">62.5E-6</span>;
+
+SELLMEIER_COEFFICIENTS = [<span class="hljs-number">0.7028554</span>,<span class="hljs-number">0.4146307</span>,<span class="hljs-number">0.8974540</span>,<span class="hljs-number">0.0727723</span>,<span class="hljs-number">0.1143085</span>,<span class="hljs-number">9.896161</span>];
+
+n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS);
+
+% -------------------------------
+% FUNCTION DECLARATIONS
+% -------------------------------
+
+function normalised_freq = V(lambda, n_1, n_2, r_1)
+  normalised_freq = (<span class="hljs-number">2</span>*pi/lambda)*r_1*(n_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>)^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
+end
+
+function x = J(alpha, z)
+  summation = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> k = <span class="hljs-number">0</span>:<span class="hljs-number">100</span>
+    summation = summation + ((((-z^<span class="hljs-number">2</span>)/<span class="hljs-number">4</span>)^k)/(factorial(k) * Gamma(alpha + k + <span class="hljs-number">1</span>)));
+  end
+  x = ((z/<span class="hljs-number">2</span>)^alpha)*summation;
+end
+
+function x = Y(alpha, z)
+  x = (J(alpha, z)*<span class="hljs-built_in">cos</span>(alpha*pi)-J(-alpha, z))/<span class="hljs-built_in">sin</span>(alpha*pi);
+end
+
+function n = Sellmeier(lambda, coefficients)
+  [B_1, B_2, B_3, C_1, C_2, C_3] = coefficients;
+  n = (<span class="hljs-number">1</span> + ((B_1*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_1)) + ((B_2*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_2)) + ((B_3*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_3)))^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
+end
+
+function complex_fac = Gamma(z)
+  product = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">for</span> n = <span class="hljs-number">1</span>:<span class="hljs-number">100</span>
+    product = product*(((<span class="hljs-number">1</span>+(<span class="hljs-number">1</span>/n))^z)/(<span class="hljs-number">1</span>+(z/n)));
+  end
+  complex_fac = (<span class="hljs-number">1</span>/z)*product;
+end
+</div></code></pre>
+
+    </body>
+    </html>
