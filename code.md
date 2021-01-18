@@ -5,7 +5,7 @@
   <a href="/Long-Period-Fibre-Gratings/code.html">Code</a>
 </nav>
 
-```cpp
+```matlab
 % -------------------------------
 % Analysis of Grating-Based Optical Sensors in Extreme Environments
 % Author: Shaun Hamilton

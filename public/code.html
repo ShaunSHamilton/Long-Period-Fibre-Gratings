@@ -29,41 +29,41 @@
   <a href="/Long-Period-Fibre-Gratings/1-notes.html">Notes</a>
   <a href="/Long-Period-Fibre-Gratings/code.html">Code</a>
 </nav>
-<pre><code class="language-cpp"><div>% -------------------------------
-% Analysis of Grating-Based Optical Sensors in Extreme Environments
-% Author: Shaun Hamilton
-% -------------------------------
+<pre><code class="language-matlab"><div><span class="hljs-comment">% -------------------------------</span>
+<span class="hljs-comment">% Analysis of Grating-Based Optical Sensors in Extreme Environments</span>
+<span class="hljs-comment">% Author: Shaun Hamilton</span>
+<span class="hljs-comment">% -------------------------------</span>
 
-% -------------------------------
-% DEFINITIONS
-% -------------------------------
+<span class="hljs-comment">% -------------------------------</span>
+<span class="hljs-comment">% DEFINITIONS</span>
+<span class="hljs-comment">% -------------------------------</span>
 
-% n_1 - refractive index of core
-% n_2 - refractive index of cladding
-% n_3 - refractive index of surrounding medium
+<span class="hljs-comment">% n_1 - refractive index of core</span>
+<span class="hljs-comment">% n_2 - refractive index of cladding</span>
+<span class="hljs-comment">% n_3 - refractive index of surrounding medium</span>
 
-% lambda - wavelength of light
+<span class="hljs-comment">% lambda - wavelength of light</span>
 
-% r_1 - radius of core
-% r_2 - radius of cladding
+<span class="hljs-comment">% r_1 - radius of core</span>
+<span class="hljs-comment">% r_2 - radius of cladding</span>
 
-% b - normalised effective index
+<span class="hljs-comment">% b - normalised effective index</span>
 
-% B, C - Sellmeier Coefficient
+<span class="hljs-comment">% B, C - Sellmeier Coefficient</span>
 
-% FUNCTIONS ---------------------
+<span class="hljs-comment">% FUNCTIONS ---------------------</span>
 
-% V = (lambda: <span class="hljs-keyword">float</span>, n_1: <span class="hljs-keyword">float</span>, n_2: <span class="hljs-keyword">float</span>) =&gt; <span class="hljs-keyword">float</span> - normalised frequency
-% J = (alpha: <span class="hljs-keyword">int</span>, z: <span class="hljs-keyword">float</span>) =&gt; <span class="hljs-keyword">float</span> - Bessel function of the first kind
-% Y = (alpha: <span class="hljs-keyword">int</span>, z: <span class="hljs-keyword">float</span>) =&gt; <span class="hljs-keyword">float</span> - Bessel function of the second kind
+<span class="hljs-comment">% V = (lambda: float, n_1: float, n_2: float) =&gt; float - normalised frequency</span>
+<span class="hljs-comment">% J = (alpha: int, z: float) =&gt; float - Bessel function of the first kind</span>
+<span class="hljs-comment">% Y = (alpha: int, z: float) =&gt; float - Bessel function of the second kind</span>
 
-% Sellmeier = (lambda: <span class="hljs-keyword">float</span>, coefficients: [floats]) =&gt; <span class="hljs-keyword">float</span> - Sellmeier equation
+<span class="hljs-comment">% Sellmeier = (lambda: float, coefficients: [floats]) =&gt; float - Sellmeier equation</span>
 
-% -------------------------------
+<span class="hljs-comment">% -------------------------------</span>
 
-% -------------------------------
-% GLOBAL VARIABLES
-% -------------------------------
+<span class="hljs-comment">% -------------------------------</span>
+<span class="hljs-comment">% GLOBAL VARIABLES</span>
+<span class="hljs-comment">% -------------------------------</span>
 
 r_1 = <span class="hljs-number">4.15E-6</span>;
 r_2 = <span class="hljs-number">62.5E-6</span>;
@@ -72,38 +72,38 @@ SELLMEIER_COEFFICIENTS = [<span class="hljs-number">0.7028554</span>,<span class
 
 n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS);
 
-% -------------------------------
-% FUNCTION DECLARATIONS
-% -------------------------------
+<span class="hljs-comment">% -------------------------------</span>
+<span class="hljs-comment">% FUNCTION DECLARATIONS</span>
+<span class="hljs-comment">% -------------------------------</span>
 
-function normalised_freq = V(lambda, n_1, n_2, r_1)
-  normalised_freq = (<span class="hljs-number">2</span>*pi/lambda)*r_1*(n_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>)^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
-end
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">normalised_freq</span> = <span class="hljs-title">V</span><span class="hljs-params">(lambda, n_1, n_2, r_1)</span></span>
+  normalised_freq = (<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>/lambda)*r_1*(n_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>)^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
+<span class="hljs-keyword">end</span>
 
-function x = J(alpha, z)
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">J</span><span class="hljs-params">(alpha, z)</span></span>
   summation = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">for</span> k = <span class="hljs-number">0</span>:<span class="hljs-number">100</span>
-    summation = summation + ((((-z^<span class="hljs-number">2</span>)/<span class="hljs-number">4</span>)^k)/(factorial(k) * Gamma(alpha + k + <span class="hljs-number">1</span>)));
-  end
+    summation = summation + ((((-z^<span class="hljs-number">2</span>)/<span class="hljs-number">4</span>)^k)/(<span class="hljs-built_in">factorial</span>(k) * Gamma(alpha + k + <span class="hljs-number">1</span>)));
+  <span class="hljs-keyword">end</span>
   x = ((z/<span class="hljs-number">2</span>)^alpha)*summation;
-end
+<span class="hljs-keyword">end</span>
 
-function x = Y(alpha, z)
-  x = (J(alpha, z)*<span class="hljs-built_in">cos</span>(alpha*pi)-J(-alpha, z))/<span class="hljs-built_in">sin</span>(alpha*pi);
-end
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">Y</span><span class="hljs-params">(alpha, z)</span></span>
+  x = (J(alpha, z)*<span class="hljs-built_in">cos</span>(alpha*<span class="hljs-built_in">pi</span>)-J(-alpha, z))/<span class="hljs-built_in">sin</span>(alpha*<span class="hljs-built_in">pi</span>);
+<span class="hljs-keyword">end</span>
 
-function n = Sellmeier(lambda, coefficients)
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">n</span> = <span class="hljs-title">Sellmeier</span><span class="hljs-params">(lambda, coefficients)</span></span>
   [B_1, B_2, B_3, C_1, C_2, C_3] = coefficients;
   n = (<span class="hljs-number">1</span> + ((B_1*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_1)) + ((B_2*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_2)) + ((B_3*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_3)))^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
-end
+<span class="hljs-keyword">end</span>
 
-function complex_fac = Gamma(z)
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">complex_fac</span> = <span class="hljs-title">Gamma</span><span class="hljs-params">(z)</span></span>
   product = <span class="hljs-number">1</span>;
   <span class="hljs-keyword">for</span> n = <span class="hljs-number">1</span>:<span class="hljs-number">100</span>
     product = product*(((<span class="hljs-number">1</span>+(<span class="hljs-number">1</span>/n))^z)/(<span class="hljs-number">1</span>+(z/n)));
-  end
+  <span class="hljs-keyword">end</span>
   complex_fac = (<span class="hljs-number">1</span>/z)*product;
-end
+<span class="hljs-keyword">end</span>
 </div></code></pre>
 
     </body>

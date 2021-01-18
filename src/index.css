@@ -10,6 +10,9 @@
   --color-background: #111;
   --padding-box: 1em;
   --padding-text: 1em;
+  --code-keyword: #09ff45;
+  --code-number: #5ac5f3;
+  --code-built-in: #53e1c4;
 }
 
 nav {
@@ -27,3 +30,29 @@ a {
   color: var(--color-text);
   padding: var(--padding-text);
 }
+
+/* Undo vs-code */
+
+.vscode-light pre {
+  background-color: var(--color-background);
+}
+
+/* .vscode-light .hljs-keyword,
+.vscode-light .hljs-selector-tag,
+.vscode-light .hljs-name,
+.vscode-light .hljs-tag {
+  color: var(--code-keyword);
+}
+
+.vscode-light .hljs-comment,
+.vscode-light .hljs-quote,
+.vscode-light .hljs-number,
+.vscode-light .hljs-class,
+.vscode-light .hljs-variable {
+  color: var(--code-number);
+}
+
+.vscode-light .hljs-built_in,
+.vscode-light .hljs-builtin-name {
+  color: var(--code-built-in);
+} */
