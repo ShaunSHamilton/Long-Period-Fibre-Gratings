@@ -42,8 +42,8 @@
     - [Coupled Mode Theory](#coupled-mode-theory)
     - [Reflectivity](#reflectivity)
     - [Spectral Width](#spectral-width)
-  - [Long Period Gratings](#long-period-gratings)
-- [5.0 Effective Optical Properties of Nanoporous Materials](#50-effective-optical-properties-of-nanoporous-materials)
+- [5.0 Long Period Gratings](#50-long-period-gratings)
+- [6.0 Effective Optical Properties of Nanoporous Materials](#60-effective-optical-properties-of-nanoporous-materials)
   - [Background](#background)
 
 # 1.0 Introduction
@@ -306,13 +306,15 @@ Total Internal Reflection: $\theta : 0 < \theta < \theta_c$
 
 $$
 \tag{11}
-t_{\min} = n_1\frac{L}{c} \mid_{\theta = 0}
+\begin{aligned}
+t_{\min} &= n_1\frac{L}{c} \biggr\rvert_{\theta = 0}
+\end{aligned}
 $$
 
 $$
 \tag{12}
 \begin{aligned}
-t_{\max} &= n_1\frac{L}{c\cos{\theta_c}} \mid_{\theta = \theta_c} \\
+t_{\max} &= n_1\frac{L}{c\cos{\theta_c}} \biggr\rvert_{\theta = \theta_c} \\
 &= \frac{n_1^2L}{cn_2}
 \end{aligned}
 $$
@@ -364,7 +366,7 @@ $$
 \tag{17}
 \begin{aligned}
 \frac{dA}{dz} &= \kappa B e^{i\Gamma z} \\
-\frac{dB}{dz} &= \kappa A e^{-i\Gamma z} \kern{10em}
+\frac{dB}{dz} &= \kappa A e^{-i\Gamma z}
 \end{aligned}
 $$
 
@@ -374,10 +376,10 @@ If $\Delta n_z^2(x,y,z) = n^2(x,y)+\Delta n_0^2\sin{Kz}$ represents the refracti
 
 $$
 \tag{18}
-\kappa = \frac{\omega \epsilon_0}{8} \iint \psi^* \Delta n^2(x,y)\psi \; dx dy \kern{10em}
+\kappa = \frac{\omega \epsilon_0}{8} \iint \psi^* \Delta n^2(x,y)\psi \; dx dy
 $$
 
-_where $\psi$ - normalized modal field_
+_<div style="text-align: right">where $\psi$ - normalized modal field</div>_
 
 For a single mode fibre with Gaussian approximation, the overlap integral:
 
@@ -419,9 +421,30 @@ $$
 \Delta \lambda = \frac{\lambda_B^2}{n_{eff}L}\sqrt{1+\frac{\kappa^2L^2}{\pi^2}}
 $$
 
-## Long Period Gratings
+# 5.0 Long Period Gratings
 
-# 5.0 Effective Optical Properties of Nanoporous Materials
+![LPG](assets/LGP.png)
+
+As seen in the figure above, a long period fibre grating with incident light in the forward propagating core mode.
+The grating couples light from core modes to cladding modes.
+
+There is a small core, and large cladding. One core mode, and since large cladding, there are large number of cladding modes closely spaced. With the periodic perturbation, light can be coupled from core mode to cladding mode. This coupling is efficient if the phase matching condition is satisfied.
+
+The propagation constant of core and cladding modes are:
+
+![Coupling](assets/Coupling.png)
+
+In order to complete the phase matching to be $\lambda_p$:
+
+$$
+\tag{24}
+\begin{aligned}
+&\frac{2\pi}{\lambda_p}(n_{eff}^{co} - n_{eff}^{cl}) = \frac{2\pi}{\Lambda} \\
+\Rightarrow \quad &\lambda_p = (n_{eff}^{co}-n_{eff}^{cl})\Lambda
+\end{aligned}
+$$
+
+# 6.0 Effective Optical Properties of Nanoporous Materials
 
 ## Background
 

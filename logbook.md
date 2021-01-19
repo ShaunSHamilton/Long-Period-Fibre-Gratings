@@ -162,7 +162,11 @@ To evaluate paper
 
 ### Report Progress
 
+- Added MATLAB functions for vanilla core effective refractive index calculations
+
 ### Notes Progress
+
+- Added Chapter 5: LPGs
 
 ## 25/01/2021
 

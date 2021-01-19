@@ -42,6 +42,8 @@
 % GLOBAL VARIABLES
 % -------------------------------
 
+sumprod_upper = 1000; % As Bessel Functions use infinite summations, this defines the upper bound
+
 r_1 = 4.15E-6;
 r_2 = 62.5E-6;
 
@@ -59,7 +61,7 @@ end
 
 function x = J(alpha, z)
   summation = 0;
-  for k = 0:100
+  for k = 0:sumprod_upper
     summation = summation + ((((-z^2)/4)^k)/(factorial(k) * Gamma(alpha + k + 1)));
   end
   x = ((z/2)^alpha)*summation;
@@ -70,13 +72,14 @@ function x = Y(alpha, z)
 end
 
 function n = Sellmeier(lambda, coefficients)
-  [B_1, B_2, B_3, C_1, C_2, C_3] = coefficients;
+  coeff_cell = num2cell(coefficients);
+  [B_1, B_2, B_3, C_1, C_2, C_3] = coeff_cell{:};
   n = (1 + ((B_1*lambda^2)/(lambda^2 - C_1)) + ((B_2*lambda^2)/(lambda^2 - C_2)) + ((B_3*lambda^2)/(lambda^2 - C_3)))^(1/2);
 end
 
 function complex_fac = Gamma(z)
   product = 1;
-  for n = 1:100
+  for n = 1:sumprod_upper
     product = product*(((1+(1/n))^z)/(1+(z/n)));
   end
   complex_fac = (1/z)*product;
