@@ -423,7 +423,7 @@ $$
 
 # 5.0 Long Period Gratings
 
-![LPG](assets/LGP.png)
+![LPG](assets/LPG.png)
 
 As seen in the figure above, a long period fibre grating with incident light in the forward propagating core mode.
 The grating couples light from core modes to cladding modes.
