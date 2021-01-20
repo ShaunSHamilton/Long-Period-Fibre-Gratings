@@ -65,6 +65,8 @@
 <span class="hljs-comment">% GLOBAL VARIABLES</span>
 <span class="hljs-comment">% -------------------------------</span>
 
+sumprod_upper = <span class="hljs-number">1000</span>; <span class="hljs-comment">% As Bessel Functions use infinite summations, this defines the upper bound</span>
+
 r_1 = <span class="hljs-number">4.15E-6</span>;
 r_2 = <span class="hljs-number">62.5E-6</span>;
 
@@ -82,7 +84,7 @@ n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">J</span><span class="hljs-params">(alpha, z)</span></span>
   summation = <span class="hljs-number">0</span>;
-  <span class="hljs-keyword">for</span> k = <span class="hljs-number">0</span>:<span class="hljs-number">100</span>
+  <span class="hljs-keyword">for</span> k = <span class="hljs-number">0</span>:sumprod_upper
     summation = summation + ((((-z^<span class="hljs-number">2</span>)/<span class="hljs-number">4</span>)^k)/(<span class="hljs-built_in">factorial</span>(k) * Gamma(alpha + k + <span class="hljs-number">1</span>)));
   <span class="hljs-keyword">end</span>
   x = ((z/<span class="hljs-number">2</span>)^alpha)*summation;
@@ -93,13 +95,14 @@ n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS);
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">n</span> = <span class="hljs-title">Sellmeier</span><span class="hljs-params">(lambda, coefficients)</span></span>
-  [B_1, B_2, B_3, C_1, C_2, C_3] = coefficients;
+  coeff_cell = <span class="hljs-built_in">num2cell</span>(coefficients);
+  [B_1, B_2, B_3, C_1, C_2, C_3] = coeff_cell{:};
   n = (<span class="hljs-number">1</span> + ((B_1*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_1)) + ((B_2*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_2)) + ((B_3*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_3)))^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">complex_fac</span> = <span class="hljs-title">Gamma</span><span class="hljs-params">(z)</span></span>
   product = <span class="hljs-number">1</span>;
-  <span class="hljs-keyword">for</span> n = <span class="hljs-number">1</span>:<span class="hljs-number">100</span>
+  <span class="hljs-keyword">for</span> n = <span class="hljs-number">1</span>:sumprod_upper
     product = product*(((<span class="hljs-number">1</span>+(<span class="hljs-number">1</span>/n))^z)/(<span class="hljs-number">1</span>+(z/n)));
   <span class="hljs-keyword">end</span>
   complex_fac = (<span class="hljs-number">1</span>/z)*product;
