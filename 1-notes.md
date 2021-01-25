@@ -335,6 +335,8 @@ $$
 \end{aligned}
 $$
 
+_<div style="text-align: right">where $\Lambda$ - grating period</div>_
+
 For constructive interference at $\lambda_B$ between waves $a$, $b$, and $c$
 
 $$
@@ -443,6 +445,8 @@ $$
 \Rightarrow \quad &\lambda_p = (n_{eff}^{co}-n_{eff}^{cl})\Lambda
 \end{aligned}
 $$
+
+_<div style="text-align: right">where $\lambda_p$ - resonance wavelength</div>_
 
 # 6.0 Effective Optical Properties of Nanoporous Materials
 

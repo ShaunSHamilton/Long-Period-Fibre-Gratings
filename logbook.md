@@ -28,6 +28,9 @@
     - [Report Progress](#report-progress-4)
     - [Notes Progress](#notes-progress-4)
   - [25/01/2021](#25012021)
+    - [Supervisor Questions](#supervisor-questions-2)
+    - [Report Progress](#report-progress-5)
+    - [Code Progress](#code-progress)
   - [01/02/2021](#01022021)
   - [08/02/2021](#08022021)
   - [15/02/2021](#15022021)
@@ -152,12 +155,11 @@ To evaluate paper
 - Why specific parameters? Does it relate to work being done at UoG
   - 3.1% $GeO_2$
   - Should I limit the work to $1300nm < \lambda 1600nm$, as the previous work, and why?
+    _"Use the same parameters, in order to validate the previous work"_
 - Previous work pulls equations out of thin air, and I am struggling to verify them
   - Can I take them at their word?
-  - Are these resources my _best-bet_ to derive the equations needed?
-    - ISBN 13:978-0-12-088481-0 (I have access to the book)
-    - ISBN 10: 0-12-088481-X
-    - University of Colerado: Modal Analysis of Step-Index Fibres
+  - Are these resources my _best-bet_ to derive the equations needed? - ISBN 13:978-0-12-088481-0 (I have access to the book) - ISBN 10: 0-12-088481-X - University of Colerado: Modal Analysis of Step-Index Fibres
+    _"See 'Weakly Guided Fibres' paper"_
 - Previous work's power modes **(TODO: improve question formulation)**
 
 ### Report Progress
@@ -169,6 +171,39 @@ To evaluate paper
 - Added Chapter 5: LPGs
 
 ## 25/01/2021
+
+### Supervisor Questions
+
+- What is the _problem of the dielectric cylinder_?
+  - Does it apply to our conditions?
+- Does is make sense to refer to $n_{1}^{\text{eff}}$?
+  - That is, are there at least two _effective refractive indices_?
+
+### Report Progress
+
+1. Introduction ❎
+   1. Fibre Optics ✔️
+   2. Long Period Fibre Gratings ✔️
+   3. Fabrication of Fibres and Gratings ✔️
+   4. Literary Review ✔️
+   5. Objectives and Scope ❎
+2. Methods ❎
+   1. Conditions and Assumptions ❎
+   2. Effective Refractive Indices ❎
+      1. Core Mode ❎
+      2. Cladding Mode ✖️
+   3. Phase Matching Curves ✖️
+3. Results ✖️
+   1. MATLAB Performance ✖️
+      1. Native MATLAB ✖️
+      2. Dedicated Functions ✖️
+   2. Large Refractive Index Difference ✖️
+4. Discussion ✖️
+5. Conclusion and Evaluation ✖️
+6. Refrences ❎
+7. Appendix ✖️
+
+### Code Progress
 
 ## 01/02/2021
 
