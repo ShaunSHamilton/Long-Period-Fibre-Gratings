@@ -31,6 +31,7 @@
     - [Supervisor Questions](#supervisor-questions-2)
     - [Report Progress](#report-progress-5)
     - [Code Progress](#code-progress)
+    - [Notes Progress](#notes-progress-5)
   - [01/02/2021](#01022021)
   - [08/02/2021](#08022021)
   - [15/02/2021](#15022021)
@@ -204,6 +205,11 @@ To evaluate paper
 7. Appendix ✖️
 
 ### Code Progress
+
+### Notes Progress
+
+- Added Chapter 5: Electric and Magnetic Waves
+- Moved Chapter 5 $\rightarrow$ 6 & 6 $\rightarrow$ 7
 
 ## 01/02/2021
 

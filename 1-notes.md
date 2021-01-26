@@ -42,8 +42,10 @@
     - [Coupled Mode Theory](#coupled-mode-theory)
     - [Reflectivity](#reflectivity)
     - [Spectral Width](#spectral-width)
-- [5.0 Long Period Gratings](#50-long-period-gratings)
-- [6.0 Effective Optical Properties of Nanoporous Materials](#60-effective-optical-properties-of-nanoporous-materials)
+- [5.0 Electric and Magnetic Fields](#50-electric-and-magnetic-fields)
+  - [Linearly Polarised Waves](#linearly-polarised-waves)
+- [6.0 Long Period Gratings](#60-long-period-gratings)
+- [7.0 Effective Optical Properties of Nanoporous Materials](#70-effective-optical-properties-of-nanoporous-materials)
   - [Background](#background)
 
 # 1.0 Introduction
@@ -64,14 +66,14 @@ In the above, field patterns which are sustained throughout the length of the fi
 In the above, the random field pattern is fully within the one medium (core) of the fibre. This means the velocity can be described as:
 
 $$
-\tag{1}
+\tag{1.1}
 v = \frac{c}{n}
 $$
 
 The second section shows an example of when a mode propagates partially in the core, and partially in the cladding. The effective refractive index is described with:
 
 $$
-\tag{2}
+\tag{1.2}
 n_2 < n_{eff} < n_1
 $$
 
@@ -85,7 +87,7 @@ These modes are orthogonal, and form a complete set. Any arbitrary field distrib
 
 Therefore, since it is possible to completely define the propagation of individual modes, it is possible to predict the evolution of an arbitrary field pattern, based on _guided_ and _radiation_ modes.
 
-For a given core and cladding radius, the number of modes depends on the numerical appature ($A_N$), core radius ($a$), and the wavelength of light ($\lambda$).
+For a given core and cladding radius, the number of modes depends on the numerical appature ($A_N$), core radius ($r_1$), and the wavelength of light ($\lambda$).
 
 - A fibre with a lower numerical appature has fewer modes
 - A fibre with a smaller core has fewer modes
@@ -93,9 +95,11 @@ For a given core and cladding radius, the number of modes depends on the numeric
 Integrating the above parameters gives the _normalised frequency_:
 
 $$
-\tag*{where $A_N=\sqrt{n_1^2-n_2^2} \qquad (3)$}
-V = \frac{2\pi}{\lambda_0}aA_N \kern{10em}
+\tag{1.3}
+V = \frac{2\pi}{\lambda_0} r_1 A_N
 $$
+
+_<div style="text-align: right">where where $A_N=\sqrt{n_1^2-n_2^2}$</div>_
 
 ## Single-Mode and Multi-Mode Fibres (SMF & MMF)
 
@@ -105,15 +109,15 @@ $$
 | $V \gg 2.4048$       | Multi-Mode  |
 | $V \approx 2.4048$   | Few-Mode    |
 
-| Single-Mode Fibre                                            | Multi-Mode Fibre                                             |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Long Haul Communication                                      | Local Area Networks                                          |
-| Core Diameter $\backsim 10\mu m$                             | Core Diameter $\backsim 50\mu m$                             |
-| Light Source - Laser Diode                                   | Light Source - LED                                           |
-| Difficult to Couple Light                                    | Easier to Couple Light                                       |
-| Difficult to Splice Fibres                                   | Not Necessary to Splice Fibres                               |
-| Precision Equipment/Components Required                      | Cheaper System Components                                    |
-| Silica Glass: $\Delta = 0.003, A_N \backsim 0.1, a = 5\mu m$ | Silica Glass: $\Delta = 0.01, A_N \backsim 0.2, a = 25\mu m$ |
+| Single-Mode Fibre                                              | Multi-Mode Fibre                                               |
+| -------------------------------------------------------------- | -------------------------------------------------------------- |
+| Long Haul Communication                                        | Local Area Networks                                            |
+| Core Diameter $\backsim 10\mu m$                               | Core Diameter $\backsim 50\mu m$                               |
+| Light Source - Laser Diode                                     | Light Source - LED                                             |
+| Difficult to Couple Light                                      | Easier to Couple Light                                         |
+| Difficult to Splice Fibres                                     | Not Necessary to Splice Fibres                                 |
+| Precision Equipment/Components Required                        | Cheaper System Components                                      |
+| Silica Glass: $\Delta = 0.003, A_N \backsim 0.1, r_1 = 5\mu m$ | Silica Glass: $\Delta = 0.01, A_N \backsim 0.2, r_1 = 25\mu m$ |
 
 ### Step and Graded Indices
 
@@ -230,14 +234,14 @@ Using a precision-controlled, feeding mechanism, preform is lowered into the hig
 ![Optical Attenuation](assets/optical-attenuation.png)
 
 $$
-\tag{4}
+\tag{3.1}
 Loss = 10 \log{(\frac{P_{in}}{P_{out}})}
 $$
 
 Loss Coefficient, $\alpha$, with $L$ in $m$:
 
 $$
-\tag{5}
+\tag{3.2}
 \alpha = \frac{10}{L} \log{(\frac{P_{in}}{P_{out}})}  dBm^{-1}
 $$
 
@@ -263,14 +267,14 @@ $$
 Scattering in pure, fused silica:
 
 $$
-\tag{6}
+\tag{3.3}
 \alpha (\lambda) = \alpha_{0} (\frac{\lambda_0}{\lambda})^4
 $$
 
 #### Fresnel Reflection
 
 $$
-\tag{7}
+\tag{3.4}
 \text{Reflected Power} = \frac{(n_1-n_0)^2}{(n_1+n_0)^2}
 $$
 
@@ -279,12 +283,12 @@ $$
 ### Gaussian Pulse
 
 $$
-\tag{8}
+\tag{3.5}
 P(t, z=0) = P_0 e^{-\frac{2(t-t_0)^2}{\tau_0^2}}
 $$
 
 $$
-\tag{9}
+\tag{3.6}
 P(t, z) = \frac{\tau_0 P_0}{\tau} e^{-\frac{2(t-t_z)^2}{\tau^2}} \kern{10em}
 $$
 
@@ -295,7 +299,7 @@ _<div style="text-align: right">where $\tau^2 = \tau_0^2 + \Delta \tau^2$</div>_
 ![Intermodal Dispersion](assets/intermodal-dispersion.png)
 
 $$
-\tag{10}
+\tag{3.7}
 t = \frac{AC + CB}{c/n_1} \\
 AC\cos{\theta} = \frac{AB}{2}, \qquad CB\cos{\theta} = \frac{AB}{2} \\
 AC + CB = \frac{AB}{\cos{\theta}} \\
@@ -305,14 +309,14 @@ $$
 Total Internal Reflection: $\theta : 0 < \theta < \theta_c$
 
 $$
-\tag{11}
+\tag{3.8}
 \begin{aligned}
 t_{\min} &= n_1\frac{L}{c} \biggr\rvert_{\theta = 0}
 \end{aligned}
 $$
 
 $$
-\tag{12}
+\tag{3.9}
 \begin{aligned}
 t_{\max} &= n_1\frac{L}{c\cos{\theta_c}} \biggr\rvert_{\theta = \theta_c} \\
 &= \frac{n_1^2L}{cn_2}
@@ -328,7 +332,7 @@ $$
 Condition for strong reflection
 
 $$
-\tag{13}
+\tag{4.1}
 \begin{aligned}
 \Delta \phi_{ab} &= \pi - \frac{2\pi}{\lambda_0}(n_0 + \Delta n_0)\Lambda \\
 \Delta \phi_{bc} &= \pi + \frac{2\pi}{\lambda_0}(n_0 - \Delta n_0)\Lambda
@@ -340,7 +344,7 @@ _<div style="text-align: right">where $\Lambda$ - grating period</div>_
 For constructive interference at $\lambda_B$ between waves $a$, $b$, and $c$
 
 $$
-\tag{14}
+\tag{4.2}
 \Delta \phi_{bc} - \Delta \phi_{ab} = 2\pi \Rightarrow \lambda_B = 2n_0\Lambda
 $$
 
@@ -351,21 +355,21 @@ _<div style="text-align: right">where $\Delta n_0 \ll n_0$</div>_
 The Fibre Bragg gratings act as pertubations which enable the coupling of light between the forward and backward propagating modes
 
 $$
-\tag{15}
+\tag{4.3}
 \beta^+ = \beta^- = \beta = \frac{2\pi}{\lambda_0}n_{eff} \kern{1em}\text{and}\kern{1em} K = \frac{2\pi}{\Lambda}
 $$
 
 With phase-matching at wavelength $\lambda_B$
 
 $$
-\tag{16}
+\tag{4.4}
 2\frac{2\pi}{\lambda_B}n_{eff} = \frac{2\pi}{\Lambda} \Rightarrow \lambda_B = 2n_{eff}\Lambda
 $$
 
 If $A(z)$ and $B(z)$ are the amplitudes of forward and backward propagating modes:
 
 $$
-\tag{17}
+\tag{4.5}
 \begin{aligned}
 \frac{dA}{dz} &= \kappa B e^{i\Gamma z} \\
 \frac{dB}{dz} &= \kappa A e^{-i\Gamma z}
@@ -377,7 +381,7 @@ _<div style="text-align: right">where $\Gamma = 2\beta-K$</div>_
 If $\Delta n_z^2(x,y,z) = n^2(x,y)+\Delta n_0^2\sin{Kz}$ represents the refractive index variation in the grating
 
 $$
-\tag{18}
+\tag{4.6}
 \kappa = \frac{\omega \epsilon_0}{8} \iint \psi^* \Delta n^2(x,y)\psi \; dx dy
 $$
 
@@ -386,21 +390,21 @@ _<div style="text-align: right">where $\psi$ - normalized modal field</div>_
 For a single mode fibre with Gaussian approximation, the overlap integral:
 
 $$
-\tag{19}
+\tag{4.7}
 I \approx 1 - e^{-2a^2/w^2}
 $$
 
-_<div style="text-align: right">where $a$ - core radius, $w$ - Gaussian spot size of mode</div>_
+_<div style="text-align: right">where $r_{1}$ - core radius, $w$ - Gaussian spot size of mode</div>\_
 
 $$
-\tag{20}
+\tag{4.8}
 \therefore \kappa \approx \frac{\pi \Delta n_0 I}{\lambda_B}
 $$
 
 ### Reflectivity
 
 $$
-\tag{21}
+\tag{4.9}
 R = \frac{\kappa^2 \sinh^2(\gamma L)}{\gamma^2 \cosh^2(\gamma L) + \frac{\Gamma^2}{4}\sinh^2(\gamma L)}
 $$
 
@@ -409,7 +413,7 @@ _<div style="text-align: right">where $\gamma^2 = \kappa^2 - \Gamma^2/4$</div>_
 At Bragg wavelength $\lambda_B$:
 
 $$
-\tag{22}
+\tag{4.10}
 2\beta = K \Rightarrow \Gamma = 0 \text{and } \gamma = \kappa \\
 \rightarrow R = \tanh^2(\kappa L)
 $$
@@ -419,11 +423,57 @@ $$
 ### Spectral Width
 
 $$
-\tag{23}
+\tag{4.11}
 \Delta \lambda = \frac{\lambda_B^2}{n_{eff}L}\sqrt{1+\frac{\kappa^2L^2}{\pi^2}}
 $$
 
-# 5.0 Long Period Gratings
+# 5.0 Electric and Magnetic Fields
+
+## Linearly Polarised Waves
+
+For a linearly polarised wave in the _x-direction_, propagating in the _z-direction_:
+
+$$
+\tag{5.1}
+\overrightarrow{\xi} = \hat{x} E_0 e^{\imath (\omega t - kz)}
+$$
+
+$$
+\tag{5.2}
+\overrightarrow{\chi} = \hat{y} H_0 e^{\imath (\omega t - kz)}
+$$
+
+_<div style="text-align: right">where $H_0 = \frac{k}{\omega \mu} E_0$</div>_
+
+The magnetic field $\overrightarrow{\Eta}$, and electric field $\overrightarrow{\Epsilon}$ can be expressed:
+
+$$
+\tag{5.3}
+\overrightarrow{\Eta} = \frac{\overrightarrow{k} \times \overrightarrow{\Epsilon}}{\omega \mu}
+$$
+
+$$
+\tag{5.4}
+\overrightarrow{\Epsilon} = \frac{\overrightarrow{\Eta} \times \overrightarrow{k}}{\omega \mu}
+$$
+
+Representing equations `5.1` and `5.2` in the $\R$ domain:
+
+$$
+\tag{5.5}
+\overrightarrow{\xi} = \hat{x} E_0 \cos{(\omega t - kz)}
+$$
+
+$$
+\tag{5.6}
+\overrightarrow{\chi} = \hat{y} H_0 \cos{(\omega t - kz)}
+$$
+
+Since $E_0$ and $H_0$ are real, the electric and magnetic fields are in phase:
+
+![Electric and Magnetic Waves in Phase](assets/electric-and-magnetic-wave.png)
+
+# 6.0 Long Period Gratings
 
 ![LPG](assets/LPG.png)
 
@@ -448,7 +498,7 @@ $$
 
 _<div style="text-align: right">where $\lambda_p$ - resonance wavelength</div>_
 
-# 6.0 Effective Optical Properties of Nanoporous Materials
+# 7.0 Effective Optical Properties of Nanoporous Materials
 
 ## Background
 
