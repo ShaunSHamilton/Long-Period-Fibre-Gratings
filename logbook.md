@@ -179,6 +179,7 @@ To evaluate paper
   - Does it apply to our conditions?
 - Does is make sense to refer to $n_{1}^{\text{eff}}$?
   - That is, are there at least two _effective refractive indices_?
+- Does linearly polarised mean both $x$ and $y$ components of the wave are equal?
 
 ### Report Progress
 

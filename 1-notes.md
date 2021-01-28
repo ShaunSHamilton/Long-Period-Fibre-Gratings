@@ -44,6 +44,9 @@
     - [Spectral Width](#spectral-width)
 - [5.0 Electric and Magnetic Fields](#50-electric-and-magnetic-fields)
   - [Linearly Polarised Waves](#linearly-polarised-waves)
+    - [Refractive Index of a Di-electric](#refractive-index-of-a-di-electric)
+  - [Circularly Polarised Waves](#circularly-polarised-waves)
+  - [Energy of EM Wave](#energy-of-em-wave)
 - [6.0 Long Period Gratings](#60-long-period-gratings)
 - [7.0 Effective Optical Properties of Nanoporous Materials](#70-effective-optical-properties-of-nanoporous-materials)
   - [Background](#background)
@@ -435,12 +438,12 @@ For a linearly polarised wave in the _x-direction_, propagating in the _z-direct
 
 $$
 \tag{5.1}
-\overrightarrow{\xi} = \hat{x} E_0 e^{\imath (\omega t - kz)}
+\overrightarrow{\mathscr{E}} = \hat{x} E_0 e^{\imath (\omega t - kz)}
 $$
 
 $$
 \tag{5.2}
-\overrightarrow{\chi} = \hat{y} H_0 e^{\imath (\omega t - kz)}
+\overrightarrow{\mathscr{H}} = \hat{y} H_0 e^{\imath (\omega t - kz)}
 $$
 
 _<div style="text-align: right">where $H_0 = \frac{k}{\omega \mu} E_0$</div>_
@@ -461,17 +464,85 @@ Representing equations `5.1` and `5.2` in the $\R$ domain:
 
 $$
 \tag{5.5}
-\overrightarrow{\xi} = \hat{x} E_0 \cos{(\omega t - kz)}
+\overrightarrow{\mathscr{E}} = \hat{x} E_0 \cos{(\omega t - kz)}
 $$
 
 $$
 \tag{5.6}
-\overrightarrow{\chi} = \hat{y} H_0 \cos{(\omega t - kz)}
+\overrightarrow{\mathscr{H}} = \hat{y} H_0 \cos{(\omega t - kz)}
 $$
 
 Since $E_0$ and $H_0$ are real, the electric and magnetic fields are in phase:
 
 ![Electric and Magnetic Waves in Phase](assets/electric-and-magnetic-wave.png)
+
+$$
+\tag{5.7}
+v = \frac{\omega}{k} = \frac{1}{\sqrt{\mu \epsilon}}
+$$
+
+_<div style="text-align: right">where $\mu = \mu_{0}$ & $\epsilon = \epsilon_{0}$ in free space</div>\_
+
+Linearly polarised describes when both _x_ and _y_ components exist in the wave.
+
+### Refractive Index of a Di-electric
+
+$$
+\tag{5.8}
+n = \sqrt{\frac{\mu \epsilon}{\mu_{0} \epsilon_{0}}} \approx \sqrt{\frac{\epsilon}{\epsilon_{0}}}
+$$
+
+_<div style="text-align: right">$\because \mu \approx \mu_{0}$</div>\_
+
+**_OR_**
+
+$$
+\tag{5.9}
+\epsilon = \epsilon_{0} n^2
+$$
+
+![x and y Polarised Waves](assets/x-and-y-polarised-waves.png)
+
+## Circularly Polarised Waves
+
+$$
+E_x = E_0 \cos{(\omega t)} \quad E_y = E_0 \sin{(\omega t)}
+$$
+
+$$
+\tag{5.10}
+E_{x}^{2} + E_{y}^{2} = E_{0}^{2}
+$$
+
+## Energy of EM Wave
+
+$$
+\tag{5.11}
+\overrightarrow{\nabla} \cdot (\overrightarrow{\mathscr{E}} \times \overrightarrow{\mathscr{H}}) = \overrightarrow{\mathscr{H}} \cdot (\overrightarrow{\nabla} \times \overrightarrow{\mathscr{E}}) - \overrightarrow{\mathscr{E}} \cdot (\overrightarrow{\nabla} \times \overrightarrow{\mathscr{H}})
+$$
+
+From Maxwell's equations: $\overrightarrow{\nabla}\times \overrightarrow{\mathscr{E}} = - \frac{\partial \overrightarrow{\mathscr{B}}}{\partial t}$ and $\overrightarrow{\nabla}\times \overrightarrow{\mathscr{H}} = \overrightarrow{J} + \frac{\partial \overrightarrow{\mathscr{D}}}{\partial t}$
+
+$$
+\tag{5.12}
+\begin{aligned}
+\overrightarrow{\nabla} \cdot (\overrightarrow{\mathscr{E}}\times \overrightarrow{\mathscr{H}}) &= -\mu \overrightarrow{\mathscr{H}} \cdot \frac{\partial \overrightarrow{\mathscr{H}}}{\partial t} - \overrightarrow{J} \cdot \overrightarrow{\mathscr{E}} - \epsilon \overrightarrow{\mathscr{E}} \cdot \frac{\partial \overrightarrow{\mathscr{E}}}{\partial t} \\
+&= -\Bigg[\frac{1}{2} \mu \frac{\partial \mathscr{H}^2}{\partial t}+\frac{1}{2} \epsilon \frac{\partial \mathscr{E}^2}{\partial t}\Bigg] - \overrightarrow{J}\cdot \overrightarrow{\mathscr{E}} \\
+&= - \frac{\partial}{\partial t} \underbrace{\Bigg[\frac{1}{2}\mu \mathscr{H}^2}_{\text{density of energy stored in magnetic field}} + \underbrace{\frac{1}{2}\epsilon \mathscr{E}^2\Bigg]}_{\text{density of energy stored in electric field}} - \overbrace{\overrightarrow{J} \cdot \overrightarrow{\mathscr{E}}}^{\frac{I}{A}\frac{V}{d} = \frac{P}{v} \text{ Joule loss per unit volume}}
+\end{aligned}
+$$
+
+$$
+\tag{5.13}
+\overrightarrow{\nabla}\cdot \overrightarrow{\mathscr{S}} = - \frac{\partial u}{\partial t} - \overrightarrow{J} \cdot \overrightarrow{\mathscr{E}}
+$$
+
+_<div style="text-align: right">where $
+\begin{aligned}
+\overrightarrow{\mathscr{S}} &= \overrightarrow{\mathscr{E}} \times \overrightarrow{\mathscr{H}} \\
+u &= \frac{1}{2}(\mu \mathscr{H}^2 + \epsilon \mathscr{E}^2)
+\end{aligned}
+$</div>_
 
 # 6.0 Long Period Gratings
 
