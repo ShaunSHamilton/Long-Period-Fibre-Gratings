@@ -181,6 +181,7 @@ To evaluate paper
   - That is, are there at least two _effective refractive indices_?
 - Does linearly polarised mean both $x$ and $y$ components of the wave are equal?
   - Is this an assumption I can/need to make?
+- What Sellmeier coefficients do I use to calculate $n_2$?
 
 ### Report Progress
 
