@@ -70,42 +70,98 @@ sumprod_upper = <span class="hljs-number">1000</span>; <span class="hljs-comment
 r_1 = <span class="hljs-number">4.15E-6</span>;
 r_2 = <span class="hljs-number">62.5E-6</span>;
 
+<span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS
 SELLMEIER_COEFFICIENTS = [<span class="hljs-number">0.7028554</span>,<span class="hljs-number">0.4146307</span>,<span class="hljs-number">0.8974540</span>,<span class="hljs-number">0.0727723</span>,<span class="hljs-number">0.1143085</span>,<span class="hljs-number">9.896161</span>];
 
-n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS);
+<span class="hljs-comment">% -------------------------------</span>
+<span class="hljs-comment">% BISECTION METHOD (NATIVE)</span>
+<span class="hljs-comment">% -------------------------------</span>
+
+<span class="hljs-comment">% n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS);</span>
+
+<span class="hljs-comment">% -------------------------------</span>
+<span class="hljs-comment">% TEST</span>
+<span class="hljs-comment">% -------------------------------</span>
+temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span>,<span class="hljs-number">300</span>);
+<span class="hljs-built_in">i</span> = <span class="hljs-number">1300</span>:<span class="hljs-number">1601</span>;
+<span class="hljs-keyword">for</span> ii = <span class="hljs-built_in">i</span>
+    temo(ii<span class="hljs-number">-1299</span>) = coremode_function(ii*power(<span class="hljs-number">10</span>,<span class="hljs-number">-9</span>),r_1,r_2);
+<span class="hljs-keyword">end</span>
+<span class="hljs-built_in">plot</span>(<span class="hljs-built_in">i</span>,temo)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[left_fun, right_fun]</span> = <span class="hljs-title">core_formula_function</span><span class="hljs-params">(lambda0,r_1,r_2,neffc)</span></span>
+    <span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS
+    n_1 = Sellmeier(lambda0, SELLMEIER_COEFFICIENTS);
+    n_2 = Sellmeier(lambda0, SELLMEIER_COEFFICIENTS);
+    b = (power(neffc,<span class="hljs-number">2</span>) - power(n_2,<span class="hljs-number">2</span>))/(power(n_1,<span class="hljs-number">2</span>) - power(n_2,<span class="hljs-number">2</span>));
+    v = V(lambda0, n_1, n_2, r_1);
+    temp_value = <span class="hljs-number">1</span> - b;
+    sqr_temp1 = <span class="hljs-built_in">sqrt</span>(temp_value);
+    sqr_temp2 = <span class="hljs-built_in">sqrt</span>(b);
+    c = v * sqr_temp1;
+    d = J(<span class="hljs-number">1</span>, c);
+    e = J(<span class="hljs-number">0</span>, dc);
+    left_fun = c * d / e;
+    f = v *sqr_temp2;
+    g = Y(<span class="hljs-number">1</span>,f);
+    h = Y(<span class="hljs-number">0</span>,f);
+    right_fun = f * g/ h;
+
+<span class="hljs-keyword">end</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[n_eff_co_precise]</span> = <span class="hljs-title">coremode_function</span><span class="hljs-params">(lambda0,r_1,r_2)</span></span>
+    <span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS
+    n_1 = Sellmeier(lambda0, SELLMEIER_COEFFICIENTS);
+    n_2 = Sellmeier(lambda0, SELLMEIER_COEFFICIENTS);
+    n_eff_prev_core = n_2 + <span class="hljs-number">0.000000000000001</span>;
+    n_eff_post_core = n_1 - <span class="hljs-number">0.000000000000001</span>;
+    <span class="hljs-keyword">while</span> n_eff_post_core - n_eff_prev_core &gt; <span class="hljs-number">0.000000001</span>
+        n_eff_co_precise = (n_eff_prev_core + n_eff_post_core)/<span class="hljs-number">2</span>;
+        left_right_funs = core_formula_function(lambda0,r_1,r_2,n_eff_co_precise);
+        <span class="hljs-keyword">if</span> (left_right_funs(<span class="hljs-number">1</span>) - left_right_funs(<span class="hljs-number">2</span>) &lt;= <span class="hljs-number">0</span>)
+            n_eff_prev_core = n_eff_co_precise;
+        <span class="hljs-keyword">elseif</span> (left_right_funs(<span class="hljs-number">1</span>) - left_right_funs(<span class="hljs-number">2</span>) &gt; <span class="hljs-number">0</span>)
+            n_eff_post_core = n_eff_co_precise;
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    n_eff_co_precise = (n_eff_prev_core + n_eff_post_core)/<span class="hljs-number">2</span>;
+<span class="hljs-keyword">end</span>
+
+
 
 <span class="hljs-comment">% -------------------------------</span>
 <span class="hljs-comment">% FUNCTION DECLARATIONS</span>
 <span class="hljs-comment">% -------------------------------</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">normalised_freq</span> = <span class="hljs-title">V</span><span class="hljs-params">(lambda, n_1, n_2, r_1)</span></span>
-  normalised_freq = (<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>/lambda)*r_1*(n_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>)^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
+    normalised_freq = (<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>/lambda)*r_1*(n_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>)^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">J</span><span class="hljs-params">(alpha, z)</span></span>
-  summation = <span class="hljs-number">0</span>;
-  <span class="hljs-keyword">for</span> k = <span class="hljs-number">0</span>:sumprod_upper
-    summation = summation + ((((-z^<span class="hljs-number">2</span>)/<span class="hljs-number">4</span>)^k)/(<span class="hljs-built_in">factorial</span>(k) * Gamma(alpha + k + <span class="hljs-number">1</span>)));
-  <span class="hljs-keyword">end</span>
-  x = ((z/<span class="hljs-number">2</span>)^alpha)*summation;
+    summation = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> k = <span class="hljs-number">0</span>:sumprod_upper
+        summation = summation + ((((-z^<span class="hljs-number">2</span>)/<span class="hljs-number">4</span>)^k)/(<span class="hljs-built_in">factorial</span>(k) * Gamma(alpha + k + <span class="hljs-number">1</span>)));
+    <span class="hljs-keyword">end</span>
+    x = ((z/<span class="hljs-number">2</span>)^alpha)*summation;
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">Y</span><span class="hljs-params">(alpha, z)</span></span>
-  x = (J(alpha, z)*<span class="hljs-built_in">cos</span>(alpha*<span class="hljs-built_in">pi</span>)-J(-alpha, z))/<span class="hljs-built_in">sin</span>(alpha*<span class="hljs-built_in">pi</span>);
+    x = (J(alpha, z)*<span class="hljs-built_in">cos</span>(alpha*<span class="hljs-built_in">pi</span>)-J(-alpha, z))/<span class="hljs-built_in">sin</span>(alpha*<span class="hljs-built_in">pi</span>);
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">n</span> = <span class="hljs-title">Sellmeier</span><span class="hljs-params">(lambda, coefficients)</span></span>
-  coeff_cell = <span class="hljs-built_in">num2cell</span>(coefficients);
-  [B_1, B_2, B_3, C_1, C_2, C_3] = coeff_cell{:};
-  n = (<span class="hljs-number">1</span> + ((B_1*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_1)) + ((B_2*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_2)) + ((B_3*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_3)))^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
+    coeff_cell = <span class="hljs-built_in">num2cell</span>(coefficients);
+    [B_1, B_2, B_3, C_1, C_2, C_3] = coeff_cell{:};
+    n = (<span class="hljs-number">1</span> + ((B_1*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_1)) + ((B_2*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_2)) + ((B_3*lambda^<span class="hljs-number">2</span>)/(lambda^<span class="hljs-number">2</span> - C_3)))^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>);
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">complex_fac</span> = <span class="hljs-title">Gamma</span><span class="hljs-params">(z)</span></span>
-  product = <span class="hljs-number">1</span>;
-  <span class="hljs-keyword">for</span> n = <span class="hljs-number">1</span>:sumprod_upper
-    product = product*(((<span class="hljs-number">1</span>+(<span class="hljs-number">1</span>/n))^z)/(<span class="hljs-number">1</span>+(z/n)));
-  <span class="hljs-keyword">end</span>
-  complex_fac = (<span class="hljs-number">1</span>/z)*product;
+    product = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> n = <span class="hljs-number">1</span>:sumprod_upper
+        product = product*(((<span class="hljs-number">1</span>+(<span class="hljs-number">1</span>/n))^z)/(<span class="hljs-number">1</span>+(z/n)));
+    <span class="hljs-keyword">end</span>
+    complex_fac = (<span class="hljs-number">1</span>/z)*product;
 <span class="hljs-keyword">end</span>
 </div></code></pre>
 
