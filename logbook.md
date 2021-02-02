@@ -180,6 +180,7 @@ To evaluate paper
 - Does is make sense to refer to $n_{1}^{\text{eff}}$?
   - That is, are there at least two _effective refractive indices_?
 - Does linearly polarised mean both $x$ and $y$ components of the wave are equal?
+  - Is this an assumption I can/need to make?
 
 ### Report Progress
 
@@ -192,7 +193,7 @@ To evaluate paper
 2. Methods ❎
    1. Conditions and Assumptions ❎
    2. Effective Refractive Indices ❎
-      1. Core Mode ❎
+      1. Core Mode ✔️
       2. Cladding Mode ✖️
    3. Phase Matching Curves ✖️
 3. Results ✖️
