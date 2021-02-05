@@ -41,6 +41,8 @@
 <span class="hljs-comment">% n_1 - refractive index of core</span>
 <span class="hljs-comment">% n_2 - refractive index of cladding</span>
 <span class="hljs-comment">% n_3 - refractive index of surrounding medium</span>
+<span class="hljs-comment">% n_eff_1 - effective refractive index of core</span>
+<span class="hljs-comment">% n_eff_2 - effective refractive index of cladding</span>
 
 <span class="hljs-comment">% lambda - wavelength of light</span>
 
@@ -53,6 +55,12 @@
 
 <span class="hljs-comment">% FUNCTIONS ---------------------</span>
 
+<span class="hljs-comment">% core_lp_approx = (lambda_0: float, r_1: float, n_eff_1: float)</span>
+<span class="hljs-comment">% =&gt; [left: float, right: float] - linearly polarised approximation for core</span>
+
+<span class="hljs-comment">% coremode_n_eff(lambda_0: float, r_1: float)</span>
+<span class="hljs-comment">% =&gt; float - Effective refractive index for core</span>
+
 <span class="hljs-comment">% V = (lambda: float, n_1: float, n_2: float) =&gt; float - normalised frequency</span>
 <span class="hljs-comment">% J = (alpha: int, z: float) =&gt; float - Bessel function of the first kind</span>
 <span class="hljs-comment">% Y = (alpha: int, z: float) =&gt; float - Bessel function of the second kind</span>
@@ -64,20 +72,20 @@
 <span class="hljs-comment">% -------------------------------</span>
 <span class="hljs-comment">% GLOBAL VARIABLES</span>
 <span class="hljs-comment">% -------------------------------</span>
-
-sumprod_upper = <span class="hljs-number">1000</span>; <span class="hljs-comment">% As Bessel Functions use infinite summations, this defines the upper bound</span>
+<span class="hljs-keyword">global</span> step_size
+step_size = <span class="hljs-number">0.000000000000001</span>; <span class="hljs-comment">% Bisection step size</span>
+sumprod_upper = <span class="hljs-number">10000</span>; <span class="hljs-comment">% As Bessel Functions use infinite summations, this defines the upper bound</span>
 
 r_1 = <span class="hljs-number">4.15E-6</span>;
 r_2 = <span class="hljs-number">62.5E-6</span>;
 
-<span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS
-SELLMEIER_COEFFICIENTS = [<span class="hljs-number">0.7028554</span>,<span class="hljs-number">0.4146307</span>,<span class="hljs-number">0.8974540</span>,<span class="hljs-number">0.0727723</span>,<span class="hljs-number">0.1143085</span>,<span class="hljs-number">9.896161</span>];
+<span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS_CORE SELLMEIER_COEFFICIENTS_CLAD
+SELLMEIER_COEFFICIENTS_CORE = [<span class="hljs-number">0.7028554</span>,<span class="hljs-number">0.4146307</span>,<span class="hljs-number">0.8974540</span>,<span class="hljs-number">0.0727723</span>,<span class="hljs-number">0.1143085</span>,<span class="hljs-number">9.896161</span>];
+SELLMEIER_COEFFICIENTS_CLAD = [<span class="hljs-number">0.6961663</span>,<span class="hljs-number">0.4079426</span>,<span class="hljs-number">0.8974794</span>,<span class="hljs-number">0.0684043</span>,<span class="hljs-number">0.1162414</span>,<span class="hljs-number">9.896161</span>];
 
 <span class="hljs-comment">% -------------------------------</span>
 <span class="hljs-comment">% BISECTION METHOD (NATIVE)</span>
 <span class="hljs-comment">% -------------------------------</span>
-
-<span class="hljs-comment">% n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS);</span>
 
 <span class="hljs-comment">% -------------------------------</span>
 <span class="hljs-comment">% TEST</span>
@@ -85,47 +93,48 @@ SELLMEIER_COEFFICIENTS = [<span class="hljs-number">0.7028554</span>,<span class
 temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span>,<span class="hljs-number">300</span>);
 <span class="hljs-built_in">i</span> = <span class="hljs-number">1300</span>:<span class="hljs-number">1601</span>;
 <span class="hljs-keyword">for</span> ii = <span class="hljs-built_in">i</span>
-    temo(ii<span class="hljs-number">-1299</span>) = coremode_function(ii*power(<span class="hljs-number">10</span>,<span class="hljs-number">-9</span>),r_1,r_2);
+    temo(ii<span class="hljs-number">-1299</span>) = coremode_n_eff(ii*power(<span class="hljs-number">10</span>,<span class="hljs-number">-9</span>),r_1);
 <span class="hljs-keyword">end</span>
 <span class="hljs-built_in">plot</span>(<span class="hljs-built_in">i</span>,temo)
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[left_fun, right_fun]</span> = <span class="hljs-title">core_formula_function</span><span class="hljs-params">(lambda0,r_1,r_2,neffc)</span></span>
-    <span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS
-    n_1 = Sellmeier(lambda0, SELLMEIER_COEFFICIENTS);
-    n_2 = Sellmeier(lambda0, SELLMEIER_COEFFICIENTS);
-    b = (power(neffc,<span class="hljs-number">2</span>) - power(n_2,<span class="hljs-number">2</span>))/(power(n_1,<span class="hljs-number">2</span>) - power(n_2,<span class="hljs-number">2</span>));
-    v = V(lambda0, n_1, n_2, r_1);
-    temp_value = <span class="hljs-number">1</span> - b;
-    sqr_temp1 = <span class="hljs-built_in">sqrt</span>(temp_value);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[left, right]</span> = <span class="hljs-title">core_lp_approx</span><span class="hljs-params">(lambda_0,r_1,n_eff_1)</span></span>
+    <span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS_CORE SELLMEIER_COEFFICIENTS_CLAD
+    n_1 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CORE);
+    n_2 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CLAD);
+    b = (n_eff_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>)/(n_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>);
+    v = V(lambda_0, n_1, n_2, r_1);
+
+    sqr_temp1 = <span class="hljs-built_in">sqrt</span>(<span class="hljs-number">1</span>-b);
     sqr_temp2 = <span class="hljs-built_in">sqrt</span>(b);
     c = v * sqr_temp1;
     d = J(<span class="hljs-number">1</span>, c);
     e = J(<span class="hljs-number">0</span>, dc);
-    left_fun = c * d / e;
+    left = c * d / e;
     f = v *sqr_temp2;
     g = Y(<span class="hljs-number">1</span>,f);
     h = Y(<span class="hljs-number">0</span>,f);
-    right_fun = f * g/ h;
-
+    right = f * g/ h;
 <span class="hljs-keyword">end</span>
 
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[n_eff_co_precise]</span> = <span class="hljs-title">coremode_function</span><span class="hljs-params">(lambda0,r_1,r_2)</span></span>
-    <span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS
-    n_1 = Sellmeier(lambda0, SELLMEIER_COEFFICIENTS);
-    n_2 = Sellmeier(lambda0, SELLMEIER_COEFFICIENTS);
-    n_eff_prev_core = n_2 + <span class="hljs-number">0.000000000000001</span>;
-    n_eff_post_core = n_1 - <span class="hljs-number">0.000000000000001</span>;
-    <span class="hljs-keyword">while</span> n_eff_post_core - n_eff_prev_core &gt; <span class="hljs-number">0.000000001</span>
-        n_eff_co_precise = (n_eff_prev_core + n_eff_post_core)/<span class="hljs-number">2</span>;
-        left_right_funs = core_formula_function(lambda0,r_1,r_2,n_eff_co_precise);
-        <span class="hljs-keyword">if</span> (left_right_funs(<span class="hljs-number">1</span>) - left_right_funs(<span class="hljs-number">2</span>) &lt;= <span class="hljs-number">0</span>)
-            n_eff_prev_core = n_eff_co_precise;
-        <span class="hljs-keyword">elseif</span> (left_right_funs(<span class="hljs-number">1</span>) - left_right_funs(<span class="hljs-number">2</span>) &gt; <span class="hljs-number">0</span>)
-            n_eff_post_core = n_eff_co_precise;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[n_eff_1]</span> = <span class="hljs-title">coremode_n_eff</span><span class="hljs-params">(lambda_0,r_1)</span></span>
+    <span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS_CORE SELLMEIER_COEFFICIENTS_CLAD step_size;
+    n_1 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CORE);
+    n_2 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CLAD);
+    n_eff_1_prev = n_2 + step_size;
+    n_eff_1_post = n_1 - step_size;
+    <span class="hljs-keyword">while</span> n_eff_1_post - n_eff_1_prev &gt; <span class="hljs-number">0.000000001</span>
+        n_eff_1 = (n_eff_1_prev + n_eff_post_core)/<span class="hljs-number">2</span>;
+        left_right = core_lp_approx(lambda_0,r_1,n_eff_1);
+
+        <span class="hljs-comment">% What happens when left_right(1) === left_right(2)...?</span>
+        <span class="hljs-keyword">if</span> (left_right(<span class="hljs-number">1</span>) - left_right(<span class="hljs-number">2</span>) &lt; <span class="hljs-number">0</span>)
+            n_eff_1_prev = n_eff_1;
+        <span class="hljs-keyword">elseif</span> (left_right(<span class="hljs-number">1</span>) - left_right(<span class="hljs-number">2</span>) &gt; <span class="hljs-number">0</span>)
+            n_eff_1_post = n_eff_1;
         <span class="hljs-keyword">end</span>
     <span class="hljs-keyword">end</span>
-    n_eff_co_precise = (n_eff_prev_core + n_eff_post_core)/<span class="hljs-number">2</span>;
+    n_eff_1 = (n_eff_1_prev + n_eff_1_post)/<span class="hljs-number">2</span>;
 <span class="hljs-keyword">end</span>
 
 

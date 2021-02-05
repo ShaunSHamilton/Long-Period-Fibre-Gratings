@@ -33,6 +33,9 @@
     - [Code Progress](#code-progress)
     - [Notes Progress](#notes-progress-5)
   - [01/02/2021](#01022021)
+    - [Supervisor Questions](#supervisor-questions-3)
+    - [Report Progress](#report-progress-6)
+    - [Code Progress](#code-progress-1)
   - [08/02/2021](#08022021)
   - [15/02/2021](#15022021)
   - [22/02/2021](#22022021)
@@ -179,9 +182,13 @@ To evaluate paper
   - Does it apply to our conditions?
 - Does is make sense to refer to $n_{1}^{\text{eff}}$?
   - That is, are there at least two _effective refractive indices_?
+  - _Assume light stays in the core, so ERI is $n_{1}^{\text{eff}}$\_
 - Does linearly polarised mean both $x$ and $y$ components of the wave are equal?
   - Is this an assumption I can/need to make?
+  - _Assumes magnetic part of wave is negligable._
 - What Sellmeier coefficients do I use to calculate $n_2$?
+  - _Using pure-silica numbers make sense_
+  - Send link to JS for GitHub code
 
 ### Report Progress
 
@@ -215,6 +222,37 @@ To evaluate paper
 - Moved Chapter 5 $\rightarrow$ 6 & 6 $\rightarrow$ 7
 
 ## 01/02/2021
+
+### Supervisor Questions
+
+### Report Progress
+
+1. Introduction ❎
+   1. Fibre Optics ✔️
+   2. Long Period Fibre Gratings ✔️
+   3. Fabrication of Fibres and Gratings ✔️
+   4. Literary Review ✔️
+   5. Objectives and Scope ❎
+2. Methods ❎
+   1. Conditions and Assumptions ❎
+   2. Effective Refractive Indices ❎
+      1. Core Mode ✔️
+      2. Cladding Mode ✖️
+   3. Phase Matching Curves ✖️
+3. Results ✖️
+   1. MATLAB Performance ✖️
+      1. Native MATLAB ✖️
+      2. Dedicated Functions ✖️
+   2. Large Refractive Index Difference ✖️
+4. Discussion ✖️
+5. Conclusion and Evaluation ✖️
+6. Refrences ❎
+7. Appendix ✖️
+
+### Code Progress
+
+- Forced calculation of $n_{1}^{eff}$
+- Need to find how to use Sellmeier equation for $n_2$
 
 ## 08/02/2021
 
