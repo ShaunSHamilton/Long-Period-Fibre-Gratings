@@ -42,8 +42,8 @@
 % GLOBAL VARIABLES
 % -------------------------------
 global step_size
-step_size = 0.000000000000001; % Bisection step size
-sumprod_upper = 10000; % As Bessel Functions use infinite summations, this defines the upper bound
+step_size = 1E-15; % Bisection step size
+sumprod_upper = 1E5; % As Bessel Functions use infinite summations, this defines the upper bound
 
 r_1 = 4.15E-6;
 r_2 = 62.5E-6;
@@ -60,7 +60,7 @@ SELLMEIER_COEFFICIENTS_CLAD = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414
 % TEST
 % -------------------------------
 temo = size(0,300);
-i = 1300:1601;
+i = 1300:1599;
 for ii = i
     temo(ii-1299) = coremode_n_eff(ii*power(10,-9),r_1);
 end
@@ -77,7 +77,7 @@ function [left, right] = core_lp_approx(lambda_0,r_1,n_eff_1)
     sqr_temp2 = sqrt(b);
     c = v * sqr_temp1;
     d = J(1, c);
-    e = J(0, dc);
+    e = J(0, c);
     left = c * d / e;
     f = v *sqr_temp2;
     g = Y(1,f);
@@ -92,15 +92,15 @@ function [n_eff_1] = coremode_n_eff(lambda_0,r_1)
     n_2 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CLAD);
     n_eff_1_prev = n_2 + step_size;
     n_eff_1_post = n_1 - step_size;
-    while n_eff_1_post - n_eff_1_prev > 0.000000001
+    while n_eff_1_post - n_eff_1_prev > 0.0000000001
         n_eff_1 = (n_eff_1_prev + n_eff_post_core)/2;
-        left_right = core_lp_approx(lambda_0,r_1,n_eff_1);
+        [left, right] = core_lp_approx(lambda_0,r_1,n_eff_1);
         
-        % What happens when left_right(1) === left_right(2)...?
-        if (left_right(1) - left_right(2) < 0)
-            n_eff_1_prev = n_eff_1;
-        elseif (left_right(1) - left_right(2) > 0)
+        % What happens when left === right...?
+        if (left - right < 0)
             n_eff_1_post = n_eff_1;
+        elseif (left - right > 0)
+            n_eff_1_prev = n_eff_1;
         end
     end
     n_eff_1 = (n_eff_1_prev + n_eff_1_post)/2;

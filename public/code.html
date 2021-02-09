@@ -73,8 +73,8 @@
 <span class="hljs-comment">% GLOBAL VARIABLES</span>
 <span class="hljs-comment">% -------------------------------</span>
 <span class="hljs-keyword">global</span> step_size
-step_size = <span class="hljs-number">0.000000000000001</span>; <span class="hljs-comment">% Bisection step size</span>
-sumprod_upper = <span class="hljs-number">10000</span>; <span class="hljs-comment">% As Bessel Functions use infinite summations, this defines the upper bound</span>
+step_size = <span class="hljs-number">1E-15</span>; <span class="hljs-comment">% Bisection step size</span>
+sumprod_upper = <span class="hljs-number">1E5</span>; <span class="hljs-comment">% As Bessel Functions use infinite summations, this defines the upper bound</span>
 
 r_1 = <span class="hljs-number">4.15E-6</span>;
 r_2 = <span class="hljs-number">62.5E-6</span>;
@@ -91,7 +91,7 @@ SELLMEIER_COEFFICIENTS_CLAD = [<span class="hljs-number">0.6961663</span>,<span 
 <span class="hljs-comment">% TEST</span>
 <span class="hljs-comment">% -------------------------------</span>
 temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span>,<span class="hljs-number">300</span>);
-<span class="hljs-built_in">i</span> = <span class="hljs-number">1300</span>:<span class="hljs-number">1601</span>;
+<span class="hljs-built_in">i</span> = <span class="hljs-number">1300</span>:<span class="hljs-number">1599</span>;
 <span class="hljs-keyword">for</span> ii = <span class="hljs-built_in">i</span>
     temo(ii<span class="hljs-number">-1299</span>) = coremode_n_eff(ii*power(<span class="hljs-number">10</span>,<span class="hljs-number">-9</span>),r_1);
 <span class="hljs-keyword">end</span>
@@ -108,7 +108,7 @@ temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span
     sqr_temp2 = <span class="hljs-built_in">sqrt</span>(b);
     c = v * sqr_temp1;
     d = J(<span class="hljs-number">1</span>, c);
-    e = J(<span class="hljs-number">0</span>, dc);
+    e = J(<span class="hljs-number">0</span>, c);
     left = c * d / e;
     f = v *sqr_temp2;
     g = Y(<span class="hljs-number">1</span>,f);
@@ -123,15 +123,15 @@ temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span
     n_2 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CLAD);
     n_eff_1_prev = n_2 + step_size;
     n_eff_1_post = n_1 - step_size;
-    <span class="hljs-keyword">while</span> n_eff_1_post - n_eff_1_prev &gt; <span class="hljs-number">0.000000001</span>
+    <span class="hljs-keyword">while</span> n_eff_1_post - n_eff_1_prev &gt; <span class="hljs-number">0.0000000001</span>
         n_eff_1 = (n_eff_1_prev + n_eff_post_core)/<span class="hljs-number">2</span>;
-        left_right = core_lp_approx(lambda_0,r_1,n_eff_1);
+        [left, right] = core_lp_approx(lambda_0,r_1,n_eff_1);
 
-        <span class="hljs-comment">% What happens when left_right(1) === left_right(2)...?</span>
-        <span class="hljs-keyword">if</span> (left_right(<span class="hljs-number">1</span>) - left_right(<span class="hljs-number">2</span>) &lt; <span class="hljs-number">0</span>)
-            n_eff_1_prev = n_eff_1;
-        <span class="hljs-keyword">elseif</span> (left_right(<span class="hljs-number">1</span>) - left_right(<span class="hljs-number">2</span>) &gt; <span class="hljs-number">0</span>)
+        <span class="hljs-comment">% What happens when left === right...?</span>
+        <span class="hljs-keyword">if</span> (left - right &lt; <span class="hljs-number">0</span>)
             n_eff_1_post = n_eff_1;
+        <span class="hljs-keyword">elseif</span> (left - right &gt; <span class="hljs-number">0</span>)
+            n_eff_1_prev = n_eff_1;
         <span class="hljs-keyword">end</span>
     <span class="hljs-keyword">end</span>
     n_eff_1 = (n_eff_1_prev + n_eff_1_post)/<span class="hljs-number">2</span>;
