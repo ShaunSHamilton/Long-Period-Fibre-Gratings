@@ -138,6 +138,76 @@ temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span
 <span class="hljs-keyword">end</span>
 
 
+<span class="hljs-comment">% -------------------------------</span>
+<span class="hljs-comment">% CLADDING MODE</span>
+<span class="hljs-comment">% -------------------------------</span>
+Z_0 = <span class="hljs-number">377</span>; <span class="hljs-comment">% Electromagnetic Impedance in Vacuum</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[zeta_0, zera_0_prime]</span> = <span class="hljs-title">cladding_mode</span><span class="hljs-params">(lambda, r_1, r_2)</span></span>
+    u_1 = u(lambda, n_1, n_eff);
+    u_2 = u(lambda, n_2, n_eff);
+    z_1 = u_2*r;
+    z_2 = u_2*r_1;
+    w_3 = w(lambda, n_3, n_eff);
+
+    u_21 = (<span class="hljs-number">1</span>/(u_2^<span class="hljs-number">2</span>)) - (<span class="hljs-number">1</span>/(u_1^<span class="hljs-number">2</span>));
+    u_32 = (<span class="hljs-number">1</span>/(w_3^<span class="hljs-number">2</span>)) + (<span class="hljs-number">1</span>/(u_2^<span class="hljs-number">2</span>));
+
+    sigma_1 = <span class="hljs-built_in">i</span>*alpha*n_eff/Z_0;
+    sigma_2 = <span class="hljs-built_in">i</span>*alpha*n_eff*Z_0;
+
+    <span class="hljs-built_in">j</span> = j_func(alpha,u_1,r_1);
+    k = k_func(alpha,r_2,w_3);
+
+    zeta_0 = (<span class="hljs-number">1</span>/sigma_2)*((u_2*(<span class="hljs-built_in">j</span>*k + (sigma_1*sigma_2*u_21*u_32)/((n_2^<span class="hljs-number">2</span>) * r_1*r_2))*p(alpha, z_1, z_2) - k*q(alpha, z_1, z_2) + <span class="hljs-built_in">j</span>*R(alpha,r_2) - (<span class="hljs-number">1</span>/u_2)*s(alpha, z_1, z_2))/(-u_2*(<span class="hljs-built_in">j</span>*(u_32/(n_2^<span class="hljs-number">2</span> * r_2)) - k*(u_21/(n_1^<span class="hljs-number">2</span> * r_1)))*p(alpha, z_1, z_2) + q(alpha, z_1, z_2)*(u_32/(n_1^<span class="hljs-number">2</span> * r_2)) + R(alpha,z_1,z_2)*(u_21/(n_1^<span class="hljs-number">2</span> * r_1))))
+
+    zeta_0_prime = (sigma_1)*((u_2*(<span class="hljs-built_in">j</span>*(u_32/r_2) - k*((n_3^<span class="hljs-number">2</span> * u_21)/(n_2^<span class="hljs-number">2</span> * r_1)))*p(alpha, z_1, z_2) + q(alpha, z_1, z_2)*(u_32/r_2) + R(alpha,r_2)*(u_21/r_1))/(u_2*(<span class="hljs-built_in">j</span>*k*((n_3^<span class="hljs-number">2</span>)/(n_2^<span class="hljs-number">2</span>)) + (sigma_1*sigma_2*u_21*u_32)/((n_1^<span class="hljs-number">2</span>)*r_1*r_2))*p(alpha, z_1, z_2) - k*q(alpha, z_1, z_2)*((n_3^<span class="hljs-number">2</span>)/(n_1^<span class="hljs-number">2</span>)) + <span class="hljs-built_in">j</span>*R(alpha,z_1,z_2) - s(alpha, z_1, z_2)*((n_2^<span class="hljs-number">2</span>)/((n_1^<span class="hljs-number">2</span>)*u_2)));
+<span class="hljs-keyword">end</span>
+<span class="hljs-comment">% -----------------</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">j</span> = <span class="hljs-title">j_func</span><span class="hljs-params">(alpha, u_1,r_1)</span></span>
+    z = u_1*r_1;
+    <span class="hljs-built_in">j</span> = (J_der(alpha, z))/(u_1* J(alpha, z));
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">k</span> = <span class="hljs-title">k_func</span><span class="hljs-params">(alpha,r_2,w_3)</span></span>
+    z = w_3*r_2;
+    k = (Y_der(alpha, z))/(w*Y(alpha, z));
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">u</span> = <span class="hljs-title">u</span><span class="hljs-params">(lambda, n, n_eff)</span></span>
+    u = (<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>/lambda)*<span class="hljs-built_in">sqrt</span>(n^<span class="hljs-number">2</span> - n_eff^<span class="hljs-number">2</span>);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">w_3</span> = <span class="hljs-title">w</span><span class="hljs-params">(lambda, n_3, n_eff)</span></span>
+    w_3 = (<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>/lambda)*<span class="hljs-built_in">sqrt</span>(n_eff^<span class="hljs-number">2</span> - n_3^<span class="hljs-number">2</span>);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">p</span> = <span class="hljs-title">p</span><span class="hljs-params">(alpha, z_1, z_2)</span></span>
+    <span class="hljs-comment">% z_1 = u_2*r;</span>
+    <span class="hljs-comment">% z_2 = u_2*r_1;</span>
+    p = J(alpha, z_1)*N(alpha, z_2) - J(alpha, z_2)*N(alpha, z_1);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">q</span> = <span class="hljs-title">q</span><span class="hljs-params">(alpha, z_1, z_2)</span></span>
+    <span class="hljs-comment">% z_1 = u_2*r;</span>
+    <span class="hljs-comment">% z_2 = u_2*r_1;</span>
+    q = J(alpha, z_1)*N_der(alpha, z_2) - J_der(alpha, z_2)*N(alpha, z_1);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">r</span> = <span class="hljs-title">R</span><span class="hljs-params">(alpha, z_1, z_2)</span></span>
+    <span class="hljs-comment">% z_1 = u_2*r;</span>
+    <span class="hljs-comment">% z_2 = u_2*r_1;</span>
+    r = J_der(alpha, z_1)*N(alpha, z_2) - J(alpha, z_2)*N_der(alpha, z_1);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">s</span> = <span class="hljs-title">s</span><span class="hljs-params">(alpha, z_1, z_2)</span></span>
+    <span class="hljs-comment">% z_1 = u_2*r;</span>
+    <span class="hljs-comment">% z_2 = u_2*r_1;</span>
+    s = J_der(alpha, z_1)*N_der(alpha, z_2) - J_der(alpha, z_2)*N_der(alpha, z_1);
+<span class="hljs-keyword">end</span>
+
 
 <span class="hljs-comment">% -------------------------------</span>
 <span class="hljs-comment">% FUNCTION DECLARATIONS</span>
