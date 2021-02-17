@@ -115,6 +115,76 @@ function [n_eff_1] = coremode_n_eff(lambda_0,r_1)
 end
 
 
+% -------------------------------
+% CLADDING MODE
+% -------------------------------
+Z_0 = 377; % Electromagnetic Impedance in Vacuum
+
+
+function [zeta_0, zera_0_prime] = cladding_mode(lambda, r_1, r_2)
+    u_1 = u(lambda, n_1, n_eff);
+    u_2 = u(lambda, n_2, n_eff);
+    z_1 = u_2*r;
+    z_2 = u_2*r_1;
+    w_3 = w(lambda, n_3, n_eff);
+
+    u_21 = (1/(u_2^2)) - (1/(u_1^2));
+    u_32 = (1/(w_3^2)) + (1/(u_2^2));
+
+    sigma_1 = i*alpha*n_eff/Z_0;
+    sigma_2 = i*alpha*n_eff*Z_0;
+
+    j = j_func(alpha,u_1,r_1);
+    k = k_func(alpha,r_2,w_3);
+
+    zeta_0 = (1/sigma_2)*((u_2*(j*k + (sigma_1*sigma_2*u_21*u_32)/((n_2^2) * r_1*r_2))*p(alpha, z_1, z_2) - k*q(alpha, z_1, z_2) + j*R(alpha,r_2) - (1/u_2)*s(alpha, z_1, z_2))/(-u_2*(j*(u_32/(n_2^2 * r_2)) - k*(u_21/(n_1^2 * r_1)))*p(alpha, z_1, z_2) + q(alpha, z_1, z_2)*(u_32/(n_1^2 * r_2)) + R(alpha,z_1,z_2)*(u_21/(n_1^2 * r_1))))
+
+    zeta_0_prime = (sigma_1)*((u_2*(j*(u_32/r_2) - k*((n_3^2 * u_21)/(n_2^2 * r_1)))*p(alpha, z_1, z_2) + q(alpha, z_1, z_2)*(u_32/r_2) + R(alpha,r_2)*(u_21/r_1))/(u_2*(j*k*((n_3^2)/(n_2^2)) + (sigma_1*sigma_2*u_21*u_32)/((n_1^2)*r_1*r_2))*p(alpha, z_1, z_2) - k*q(alpha, z_1, z_2)*((n_3^2)/(n_1^2)) + j*R(alpha,z_1,z_2) - s(alpha, z_1, z_2)*((n_2^2)/((n_1^2)*u_2)));
+end
+% -----------------
+
+function j = j_func(alpha, u_1,r_1)
+    z = u_1*r_1;
+    j = (J_der(alpha, z))/(u_1* J(alpha, z));
+end
+
+function k = k_func(alpha,r_2,w_3)
+    z = w_3*r_2;
+    k = (Y_der(alpha, z))/(w*Y(alpha, z));
+end
+
+function u = u(lambda, n, n_eff)
+    u = (2*pi/lambda)*sqrt(n^2 - n_eff^2);
+end
+
+function w_3 = w(lambda, n_3, n_eff)
+    w_3 = (2*pi/lambda)*sqrt(n_eff^2 - n_3^2);
+end
+
+function p = p(alpha, z_1, z_2)
+    % z_1 = u_2*r;
+    % z_2 = u_2*r_1;
+    p = J(alpha, z_1)*N(alpha, z_2) - J(alpha, z_2)*N(alpha, z_1);
+end
+
+function q = q(alpha, z_1, z_2)
+    % z_1 = u_2*r;
+    % z_2 = u_2*r_1;
+    q = J(alpha, z_1)*N_der(alpha, z_2) - J_der(alpha, z_2)*N(alpha, z_1);
+end
+
+function r = R(alpha, z_1, z_2)
+    % z_1 = u_2*r;
+    % z_2 = u_2*r_1;
+    r = J_der(alpha, z_1)*N(alpha, z_2) - J(alpha, z_2)*N_der(alpha, z_1);
+end
+
+function s = s(alpha, z_1, z_2)
+    % z_1 = u_2*r;
+    % z_2 = u_2*r_1;
+    s = J_der(alpha, z_1)*N_der(alpha, z_2) - J_der(alpha, z_2)*N_der(alpha, z_1);
+end
+
 
 % -------------------------------
 % FUNCTION DECLARATIONS

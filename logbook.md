@@ -37,6 +37,7 @@
     - [Report Progress](#report-progress-6)
     - [Code Progress](#code-progress-1)
   - [08/02/2021](#08022021)
+    - [Code Progress](#code-progress-2)
   - [15/02/2021](#15022021)
   - [22/02/2021](#22022021)
 - [Miscellaneous](#miscellaneous-1)
@@ -255,6 +256,10 @@ To evaluate paper
 - Need to find how to use Sellmeier equation for $n_2$
 
 ## 08/02/2021
+
+### Code Progress
+
+- Added Cladding Mode functions
 
 ## 15/02/2021
 
