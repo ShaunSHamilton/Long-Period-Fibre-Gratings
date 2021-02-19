@@ -42,6 +42,9 @@
 % J = (alpha: int, z: float) => float - Bessel function of the first kind
 % Y = (alpha: int, z: float) => float - Bessel function of the second kind
 
+% J_der = (alpha: int, z: float) => float - Bessel function derivative of the first kind
+% Y_der = (alpha: int, z: float) => float - Bessel function derivative of the second kind
+
 % Sellmeier = (lambda: float, coefficients: [floats]) => float - Sellmeier equation
 
 % -------------------------------
@@ -52,6 +55,7 @@
 global step_size
 step_size = 1E-15; % Bisection step size
 sumprod_upper = 1E5; % As Bessel Functions use infinite summations, this defines the upper bound
+Z_0 = 377; % Electromagnetic Impedance in Vacuum
 
 r_1 = 4.15E-6;
 r_2 = 62.5E-6;
@@ -72,12 +76,10 @@ i = 1300:1599;
 for ii = i
     temo(ii-1299) = coremode_n_eff(ii*power(10,-9),r_1);
 end
-plot(i,temo)
+plot(i,temo); title('$n_{eff}$ vs $\lambda$',"Interpreter","latex");
+ylabel('$n_{eff}$','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
 
-function [left, right] = core_lp_approx(lambda_0,r_1,n_eff_1)
-    global SELLMEIER_COEFFICIENTS_CORE SELLMEIER_COEFFICIENTS_CLAD
-    n_1 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CORE);
-    n_2 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CLAD);
+function [left, right] = core_lp_approx(lambda_0,r_1,n_1,n_2,n_eff_1)
     b = (n_eff_1^2 - n_2^2)/(n_1^2 - n_2^2);
     v = V(lambda_0, n_1, n_2, r_1);
 
@@ -102,7 +104,7 @@ function [n_eff_1] = coremode_n_eff(lambda_0,r_1)
     n_eff_1_post = n_1 - step_size;
     while n_eff_1_post - n_eff_1_prev > 0.0000000001
         n_eff_1 = (n_eff_1_prev + n_eff_post_core)/2;
-        [left, right] = core_lp_approx(lambda_0,r_1,n_eff_1);
+        [left, right] = core_lp_approx(lambda_0,r_1,n_1,n_2,n_eff_1);
 
         % What happens when left === right...?
         if (left - right < 0)
@@ -118,10 +120,8 @@ end
 % -------------------------------
 % CLADDING MODE
 % -------------------------------
-Z_0 = 377; % Electromagnetic Impedance in Vacuum
 
-
-function [zeta_0, zera_0_prime] = cladding_mode(lambda, r_1, r_2)
+function [zeta_0, zeta_0_prime] = cladding_mode(lambda, r_1, r_2)
     u_1 = u(lambda, n_1, n_eff);
     u_2 = u(lambda, n_2, n_eff);
     z_1 = u_2*r;
@@ -131,26 +131,52 @@ function [zeta_0, zera_0_prime] = cladding_mode(lambda, r_1, r_2)
     u_21 = (1/(u_2^2)) - (1/(u_1^2));
     u_32 = (1/(w_3^2)) + (1/(u_2^2));
 
-    sigma_1 = i*alpha*n_eff/Z_0;
-    sigma_2 = i*alpha*n_eff*Z_0;
+    sigma_1 = I*alpha*n_eff/Z_0;
+    sigma_2 = I*alpha*n_eff*Z_0;
 
-    j = j_func(alpha,u_1,r_1);
-    k = k_func(alpha,r_2,w_3);
+    % REPEATED CALCULATIONS ------------
+    J_v = j_func(alpha,u_1,r_1);
+    K_v = k_func(alpha,r_2,w_3);
 
-    zeta_0 = (1/sigma_2)*((u_2*(j*k + (sigma_1*sigma_2*u_21*u_32)/((n_2^2) * r_1*r_2))*p(alpha, z_1, z_2) - k*q(alpha, z_1, z_2) + j*R(alpha,r_2) - (1/u_2)*s(alpha, z_1, z_2))/(-u_2*(j*(u_32/(n_2^2 * r_2)) - k*(u_21/(n_1^2 * r_1)))*p(alpha, z_1, z_2) + q(alpha, z_1, z_2)*(u_32/(n_1^2 * r_2)) + R(alpha,z_1,z_2)*(u_21/(n_1^2 * r_1))))
+    P_l = p(alpha, z_1, z_2);
+    Q_l = q(alpha, z_1, z_2);
+    R_l = R(alpha,z_1,z_2);
+    S_l = s(alpha, z_1, z_2);
 
-    zeta_0_prime = (sigma_1)*((u_2*(j*(u_32/r_2) - k*((n_3^2 * u_21)/(n_2^2 * r_1)))*p(alpha, z_1, z_2) + q(alpha, z_1, z_2)*(u_32/r_2) + R(alpha,r_2)*(u_21/r_1))/(u_2*(j*k*((n_3^2)/(n_2^2)) + (sigma_1*sigma_2*u_21*u_32)/((n_1^2)*r_1*r_2))*p(alpha, z_1, z_2) - k*q(alpha, z_1, z_2)*((n_3^2)/(n_1^2)) + j*R(alpha,z_1,z_2) - s(alpha, z_1, z_2)*((n_2^2)/((n_1^2)*u_2)));
+    J_K = J_v*K_v;
+    sigma_u = sigma_1*sigma_2*u_21*u_32;
+    r_12 = r_1*r_2;
+    K_Q = K_v*Q_l;
+    J_R = J_v*R_l;
+    n2_2 = n_2^2;
+    n1_2 = n_1^2;
+    % ---------------------------------
+
+    zeta_0 = (1/sigma_2)*((u_2*(J_K + (sigma_u)/((n2_2) * r_12))...
+    *P_l - K_Q + J_R - (1/u_2)*S_l)...
+    /(-u_2*(J_v*(u_32/(n2_2 * r_2)) - K_v*(u_21/(n1_2 * r_1)))*P_l...
+     + Q_l*(u_32/(n1_2 * r_2)) + R_l*(u_21/(n1_2 * r_1))));
+
+    % REPEATED CALCULATIONS ------------
+    u32_r2 = u_32/r_2;
+    n3_2 = n_3^2;
+    % ----------------------------------
+
+    zeta_0_prime = (sigma_1)*((u_2*(J_v*u32_r2 - K_v*((n3_2 * u_21)/(n2_2 * r_1)))...
+    *P_l + Q_l*(u32_r2) + R_l*(u_21/r_1))...
+    /(u_2*(J_K*(n3_2/n2_2) + sigma_u/(n1_2*r_12))...
+    *P_l - K_Q*(n3_2/n1_2) + J_R - S_l*(n2_2/(n1_2*u_2))));
 end
 % -----------------
 
-function j = j_func(alpha, u_1,r_1)
+function J_v = j_func(alpha, u_1,r_1)
     z = u_1*r_1;
-    j = (J_der(alpha, z))/(u_1* J(alpha, z));
+    J_v = (J_der(alpha, z))/(u_1* J(alpha, z));
 end
 
-function k = k_func(alpha,r_2,w_3)
+function K_v = k_func(alpha,r_2,w_3)
     z = w_3*r_2;
-    k = (Y_der(alpha, z))/(w*Y(alpha, z));
+    K_v = (Y_der(alpha, z))/(w*Y(alpha, z));
 end
 
 function u = u(lambda, n, n_eff)
@@ -202,8 +228,22 @@ function x = J(alpha, z)
     x = ((z/2)^alpha)*summation;
 end
 
+function x = J_der(alpha, z)
+    syms a b
+    c = J(a,b);
+    d = diff(c);
+    x = d(alpha, z);
+end
+
 function x = Y(alpha, z)
     x = (J(alpha, z)*cos(alpha*pi)-J(-alpha, z))/sin(alpha*pi);
+end
+
+function x = Y_der(alpha, z)
+    syms a b
+    c = Y(a,b);
+    d = diff(c);
+    x = d(alpha, z);
 end
 
 function n = Sellmeier(lambda, coefficients)

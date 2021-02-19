@@ -5,7 +5,8 @@
         <title></title>
         <style>
 </style>
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
@@ -19,7 +20,7 @@
 .task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
         
-        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
         
     </head>
     <body class="vscode-body vscode-light">
@@ -65,6 +66,9 @@
 <span class="hljs-comment">% J = (alpha: int, z: float) =&gt; float - Bessel function of the first kind</span>
 <span class="hljs-comment">% Y = (alpha: int, z: float) =&gt; float - Bessel function of the second kind</span>
 
+<span class="hljs-comment">% J_der = (alpha: int, z: float) =&gt; float - Bessel function derivative of the first kind</span>
+<span class="hljs-comment">% Y_der = (alpha: int, z: float) =&gt; float - Bessel function derivative of the second kind</span>
+
 <span class="hljs-comment">% Sellmeier = (lambda: float, coefficients: [floats]) =&gt; float - Sellmeier equation</span>
 
 <span class="hljs-comment">% -------------------------------</span>
@@ -75,6 +79,7 @@
 <span class="hljs-keyword">global</span> step_size
 step_size = <span class="hljs-number">1E-15</span>; <span class="hljs-comment">% Bisection step size</span>
 sumprod_upper = <span class="hljs-number">1E5</span>; <span class="hljs-comment">% As Bessel Functions use infinite summations, this defines the upper bound</span>
+Z_0 = <span class="hljs-number">377</span>; <span class="hljs-comment">% Electromagnetic Impedance in Vacuum</span>
 
 r_1 = <span class="hljs-number">4.15E-6</span>;
 r_2 = <span class="hljs-number">62.5E-6</span>;
@@ -95,12 +100,10 @@ temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span
 <span class="hljs-keyword">for</span> ii = <span class="hljs-built_in">i</span>
     temo(ii<span class="hljs-number">-1299</span>) = coremode_n_eff(ii*power(<span class="hljs-number">10</span>,<span class="hljs-number">-9</span>),r_1);
 <span class="hljs-keyword">end</span>
-<span class="hljs-built_in">plot</span>(<span class="hljs-built_in">i</span>,temo)
+<span class="hljs-built_in">plot</span>(<span class="hljs-built_in">i</span>,temo); title(<span class="hljs-string">&#x27;$n_{eff}$ vs $\lambda$&#x27;</span>,<span class="hljs-string">&quot;Interpreter&quot;</span>,<span class="hljs-string">&quot;latex&quot;</span>);
+ylabel(<span class="hljs-string">&#x27;$n_{eff}$&#x27;</span>,<span class="hljs-string">&#x27;Interpreter&#x27;</span>,<span class="hljs-string">&quot;latex&quot;</span>); xlabel(<span class="hljs-string">&#x27;Wavelength ($\lambda$) [$nm$]&#x27;</span>,<span class="hljs-string">&#x27;Interpreter&#x27;</span>,<span class="hljs-string">&quot;latex&quot;</span>);
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[left, right]</span> = <span class="hljs-title">core_lp_approx</span><span class="hljs-params">(lambda_0,r_1,n_eff_1)</span></span>
-    <span class="hljs-keyword">global</span> SELLMEIER_COEFFICIENTS_CORE SELLMEIER_COEFFICIENTS_CLAD
-    n_1 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CORE);
-    n_2 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CLAD);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[left, right]</span> = <span class="hljs-title">core_lp_approx</span><span class="hljs-params">(lambda_0,r_1,n_1,n_2,n_eff_1)</span></span>
     b = (n_eff_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>)/(n_1^<span class="hljs-number">2</span> - n_2^<span class="hljs-number">2</span>);
     v = V(lambda_0, n_1, n_2, r_1);
 
@@ -125,7 +128,7 @@ temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span
     n_eff_1_post = n_1 - step_size;
     <span class="hljs-keyword">while</span> n_eff_1_post - n_eff_1_prev &gt; <span class="hljs-number">0.0000000001</span>
         n_eff_1 = (n_eff_1_prev + n_eff_post_core)/<span class="hljs-number">2</span>;
-        [left, right] = core_lp_approx(lambda_0,r_1,n_eff_1);
+        [left, right] = core_lp_approx(lambda_0,r_1,n_1,n_2,n_eff_1);
 
         <span class="hljs-comment">% What happens when left === right...?</span>
         <span class="hljs-keyword">if</span> (left - right &lt; <span class="hljs-number">0</span>)
@@ -141,10 +144,8 @@ temo = <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span
 <span class="hljs-comment">% -------------------------------</span>
 <span class="hljs-comment">% CLADDING MODE</span>
 <span class="hljs-comment">% -------------------------------</span>
-Z_0 = <span class="hljs-number">377</span>; <span class="hljs-comment">% Electromagnetic Impedance in Vacuum</span>
 
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[zeta_0, zera_0_prime]</span> = <span class="hljs-title">cladding_mode</span><span class="hljs-params">(lambda, r_1, r_2)</span></span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[zeta_0, zeta_0_prime]</span> = <span class="hljs-title">cladding_mode</span><span class="hljs-params">(lambda, r_1, r_2)</span></span>
     u_1 = u(lambda, n_1, n_eff);
     u_2 = u(lambda, n_2, n_eff);
     z_1 = u_2*r;
@@ -154,26 +155,52 @@ Z_0 = <span class="hljs-number">377</span>; <span class="hljs-comment">% Electro
     u_21 = (<span class="hljs-number">1</span>/(u_2^<span class="hljs-number">2</span>)) - (<span class="hljs-number">1</span>/(u_1^<span class="hljs-number">2</span>));
     u_32 = (<span class="hljs-number">1</span>/(w_3^<span class="hljs-number">2</span>)) + (<span class="hljs-number">1</span>/(u_2^<span class="hljs-number">2</span>));
 
-    sigma_1 = <span class="hljs-built_in">i</span>*alpha*n_eff/Z_0;
-    sigma_2 = <span class="hljs-built_in">i</span>*alpha*n_eff*Z_0;
+    sigma_1 = I*alpha*n_eff/Z_0;
+    sigma_2 = I*alpha*n_eff*Z_0;
 
-    <span class="hljs-built_in">j</span> = j_func(alpha,u_1,r_1);
-    k = k_func(alpha,r_2,w_3);
+    <span class="hljs-comment">% REPEATED CALCULATIONS ------------</span>
+    J_v = j_func(alpha,u_1,r_1);
+    K_v = k_func(alpha,r_2,w_3);
 
-    zeta_0 = (<span class="hljs-number">1</span>/sigma_2)*((u_2*(<span class="hljs-built_in">j</span>*k + (sigma_1*sigma_2*u_21*u_32)/((n_2^<span class="hljs-number">2</span>) * r_1*r_2))*p(alpha, z_1, z_2) - k*q(alpha, z_1, z_2) + <span class="hljs-built_in">j</span>*R(alpha,r_2) - (<span class="hljs-number">1</span>/u_2)*s(alpha, z_1, z_2))/(-u_2*(<span class="hljs-built_in">j</span>*(u_32/(n_2^<span class="hljs-number">2</span> * r_2)) - k*(u_21/(n_1^<span class="hljs-number">2</span> * r_1)))*p(alpha, z_1, z_2) + q(alpha, z_1, z_2)*(u_32/(n_1^<span class="hljs-number">2</span> * r_2)) + R(alpha,z_1,z_2)*(u_21/(n_1^<span class="hljs-number">2</span> * r_1))))
+    P_l = p(alpha, z_1, z_2);
+    Q_l = q(alpha, z_1, z_2);
+    R_l = R(alpha,z_1,z_2);
+    S_l = s(alpha, z_1, z_2);
 
-    zeta_0_prime = (sigma_1)*((u_2*(<span class="hljs-built_in">j</span>*(u_32/r_2) - k*((n_3^<span class="hljs-number">2</span> * u_21)/(n_2^<span class="hljs-number">2</span> * r_1)))*p(alpha, z_1, z_2) + q(alpha, z_1, z_2)*(u_32/r_2) + R(alpha,r_2)*(u_21/r_1))/(u_2*(<span class="hljs-built_in">j</span>*k*((n_3^<span class="hljs-number">2</span>)/(n_2^<span class="hljs-number">2</span>)) + (sigma_1*sigma_2*u_21*u_32)/((n_1^<span class="hljs-number">2</span>)*r_1*r_2))*p(alpha, z_1, z_2) - k*q(alpha, z_1, z_2)*((n_3^<span class="hljs-number">2</span>)/(n_1^<span class="hljs-number">2</span>)) + <span class="hljs-built_in">j</span>*R(alpha,z_1,z_2) - s(alpha, z_1, z_2)*((n_2^<span class="hljs-number">2</span>)/((n_1^<span class="hljs-number">2</span>)*u_2)));
+    J_K = J_v*K_v;
+    sigma_u = sigma_1*sigma_2*u_21*u_32;
+    r_12 = r_1*r_2;
+    K_Q = K_v*Q_l;
+    J_R = J_v*R_l;
+    n2_2 = n_2^<span class="hljs-number">2</span>;
+    n1_2 = n_1^<span class="hljs-number">2</span>;
+    <span class="hljs-comment">% ---------------------------------</span>
+
+    zeta_0 = (<span class="hljs-number">1</span>/sigma_2)*((u_2*(J_K + (sigma_u)/((n2_2) * r_12))...
+    *P_l - K_Q + J_R - (<span class="hljs-number">1</span>/u_2)*S_l)...
+    /(-u_2*(J_v*(u_32/(n2_2 * r_2)) - K_v*(u_21/(n1_2 * r_1)))*P_l...
+     + Q_l*(u_32/(n1_2 * r_2)) + R_l*(u_21/(n1_2 * r_1))));
+
+    <span class="hljs-comment">% REPEATED CALCULATIONS ------------</span>
+    u32_r2 = u_32/r_2;
+    n3_2 = n_3^<span class="hljs-number">2</span>;
+    <span class="hljs-comment">% ----------------------------------</span>
+
+    zeta_0_prime = (sigma_1)*((u_2*(J_v*u32_r2 - K_v*((n3_2 * u_21)/(n2_2 * r_1)))...
+    *P_l + Q_l*(u32_r2) + R_l*(u_21/r_1))...
+    /(u_2*(J_K*(n3_2/n2_2) + sigma_u/(n1_2*r_12))...
+    *P_l - K_Q*(n3_2/n1_2) + J_R - S_l*(n2_2/(n1_2*u_2))));
 <span class="hljs-keyword">end</span>
 <span class="hljs-comment">% -----------------</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">j</span> = <span class="hljs-title">j_func</span><span class="hljs-params">(alpha, u_1,r_1)</span></span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">J_v</span> = <span class="hljs-title">j_func</span><span class="hljs-params">(alpha, u_1,r_1)</span></span>
     z = u_1*r_1;
-    <span class="hljs-built_in">j</span> = (J_der(alpha, z))/(u_1* J(alpha, z));
+    J_v = (J_der(alpha, z))/(u_1* J(alpha, z));
 <span class="hljs-keyword">end</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">k</span> = <span class="hljs-title">k_func</span><span class="hljs-params">(alpha,r_2,w_3)</span></span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">K_v</span> = <span class="hljs-title">k_func</span><span class="hljs-params">(alpha,r_2,w_3)</span></span>
     z = w_3*r_2;
-    k = (Y_der(alpha, z))/(w*Y(alpha, z));
+    K_v = (Y_der(alpha, z))/(w*Y(alpha, z));
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">u</span> = <span class="hljs-title">u</span><span class="hljs-params">(lambda, n, n_eff)</span></span>
@@ -225,8 +252,22 @@ Z_0 = <span class="hljs-number">377</span>; <span class="hljs-comment">% Electro
     x = ((z/<span class="hljs-number">2</span>)^alpha)*summation;
 <span class="hljs-keyword">end</span>
 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">J_der</span><span class="hljs-params">(alpha, z)</span></span>
+    syms a b
+    c = J(a,b);
+    d = diff(c);
+    x = d(alpha, z);
+<span class="hljs-keyword">end</span>
+
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">Y</span><span class="hljs-params">(alpha, z)</span></span>
     x = (J(alpha, z)*<span class="hljs-built_in">cos</span>(alpha*<span class="hljs-built_in">pi</span>)-J(-alpha, z))/<span class="hljs-built_in">sin</span>(alpha*<span class="hljs-built_in">pi</span>);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">Y_der</span><span class="hljs-params">(alpha, z)</span></span>
+    syms a b
+    c = Y(a,b);
+    d = diff(c);
+    x = d(alpha, z);
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">n</span> = <span class="hljs-title">Sellmeier</span><span class="hljs-params">(lambda, coefficients)</span></span>

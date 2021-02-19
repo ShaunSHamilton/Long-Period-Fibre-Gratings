@@ -39,6 +39,7 @@
   - [08/02/2021](#08022021)
     - [Code Progress](#code-progress-2)
   - [15/02/2021](#15022021)
+    - [Code Progress](#code-progress-3)
   - [22/02/2021](#22022021)
 - [Miscellaneous](#miscellaneous-1)
   - [Report Writing](#report-writing)
@@ -262,6 +263,10 @@ To evaluate paper
 - Added Cladding Mode functions
 
 ## 15/02/2021
+
+### Code Progress
+
+- Still unable to get core mode function to be correct
 
 ## 22/02/2021
 
