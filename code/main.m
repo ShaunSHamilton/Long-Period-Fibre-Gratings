@@ -33,9 +33,11 @@
 % V = (lambda: float, n_1: float, n_2: float) => float - normalised frequency
 % J = (alpha: int, z: float) => float - Bessel function of the first kind
 % Y = (alpha: int, z: float) => float - Bessel function of the second kind
+% K = (alpha: int, z: float) => float - Bessel function (modified) of the second kind
 
 % J_der = (alpha: int, z: float) => float - Bessel function derivative of the first kind
 % Y_der = (alpha: int, z: float) => float - Bessel function derivative of the second kind
+% K_der = (alpha: int, z: float) => float - Bessel function (modified) derivative of the second kind
 
 % Sellmeier = (lambda: float, coefficients: [floats]) => float - Sellmeier equation
 
@@ -44,7 +46,7 @@
 % -------------------------------
 % GLOBAL VARIABLES
 % -------------------------------
-global step_size
+global step_size sumprod_upper Z_0
 step_size = 1E-15; % Bisection step size
 sumprod_upper = 1E5; % As Bessel Functions use infinite summations, this defines the upper bound
 Z_0 = 377; % Electromagnetic Impedance in Vacuum
@@ -70,6 +72,9 @@ for ii = i
 end
 plot(i,temo); title('$n_{eff}$ vs $\lambda$',"Interpreter","latex");
 ylabel('$n_{eff}$','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
+% lambda_test = 1500E-9;
+% n_eff = coremode_n_eff(lambda_test, r_1);
+% plot(cladding_mode(lambda_test,r_1,r_2, n_eff));
 
 function [left, right] = core_lp_approx(lambda_0,r_1,n_1,n_2,n_eff_1)
     b = (n_eff_1^2 - n_2^2)/(n_1^2 - n_2^2);
@@ -113,10 +118,17 @@ end
 % CLADDING MODE
 % -------------------------------
 
-function [zeta_0, zeta_0_prime] = cladding_mode(lambda, r_1, r_2)
+function [zeta_0, zeta_0_prime] = cladding_mode(lambda, r_1, r_2, n_eff)
+    global SELLMEIER_COEFFICIENTS_CORE SELLMEIER_COEFFICIENTS_CLAD Z_0;
+    n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS_CORE);
+    n_2 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS_CLAD);
+    n_3 = 1;
+    I = 250;
+    alpha = 1;
+    
     u_1 = u(lambda, n_1, n_eff);
     u_2 = u(lambda, n_2, n_eff);
-    z_1 = u_2*r;
+    z_1 = u_2*r_2;
     z_2 = u_2*r_1;
     w_3 = w(lambda, n_3, n_eff);
 
@@ -182,25 +194,25 @@ end
 function p = p(alpha, z_1, z_2)
     % z_1 = u_2*r;
     % z_2 = u_2*r_1;
-    p = J(alpha, z_1)*N(alpha, z_2) - J(alpha, z_2)*N(alpha, z_1);
+    p = J(alpha, z_1)*K(alpha, z_2) - J(alpha, z_2)*K(alpha, z_1);
 end
 
 function q = q(alpha, z_1, z_2)
     % z_1 = u_2*r;
     % z_2 = u_2*r_1;
-    q = J(alpha, z_1)*N_der(alpha, z_2) - J_der(alpha, z_2)*N(alpha, z_1);
+    q = J(alpha, z_1)*K_der(alpha, z_2) - J_der(alpha, z_2)*K(alpha, z_1);
 end
 
 function r = R(alpha, z_1, z_2)
     % z_1 = u_2*r;
     % z_2 = u_2*r_1;
-    r = J_der(alpha, z_1)*N(alpha, z_2) - J(alpha, z_2)*N_der(alpha, z_1);
+    r = J_der(alpha, z_1)*K(alpha, z_2) - J(alpha, z_2)*K_der(alpha, z_1);
 end
 
 function s = s(alpha, z_1, z_2)
     % z_1 = u_2*r;
     % z_2 = u_2*r_1;
-    s = J_der(alpha, z_1)*N_der(alpha, z_2) - J_der(alpha, z_2)*N_der(alpha, z_1);
+    s = J_der(alpha, z_1)*K_der(alpha, z_2) - J_der(alpha, z_2)*K_der(alpha, z_1);
 end
 
 
@@ -213,6 +225,7 @@ function normalised_freq = V(lambda, n_1, n_2, r_1)
 end
 
 function x = J(alpha, z)
+    global sumprod_upper
     summation = 0;
     for k = 0:sumprod_upper
         summation = summation + ((((-z^2)/4)^k)/(factorial(k) * Gamma(alpha + k + 1)));
@@ -238,6 +251,17 @@ function x = Y_der(alpha, z)
     x = d(alpha, z);
 end
 
+function x = K(alpha, z) 
+    x = besselk(alpha, z);
+end
+
+function x = K_der(alpha, z)
+    syms a b
+    c = K(a,b);
+    d = diff(c);
+    x = d(alpha, z);
+end
+
 function n = Sellmeier(lambda, coefficients)
     coeff_cell = num2cell(coefficients);
     [B_1, B_2, B_3, C_1, C_2, C_3] = coeff_cell{:};
@@ -245,6 +269,7 @@ function n = Sellmeier(lambda, coefficients)
 end
 
 function complex_fac = Gamma(z)
+    global sumprod_upper
     product = 1;
     for n = 1:sumprod_upper
         product = product*(((1+(1/n))^z)/(1+(z/n)));
