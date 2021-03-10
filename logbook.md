@@ -41,6 +41,13 @@
   - [15/02/2021](#15022021)
     - [Code Progress](#code-progress-3)
   - [22/02/2021](#22022021)
+  - [01/03/2021](#01032021)
+    - [Code Progress](#code-progress-4)
+  - [08/03/2021](#08032021)
+    - [Code Progress](#code-progress-5)
+    - [Supervisor Questions](#supervisor-questions-4)
+  - [15/03/2021](#15032021)
+  - [22/03/2021](#22032021)
 - [Miscellaneous](#miscellaneous-1)
   - [Report Writing](#report-writing)
 
@@ -269,6 +276,30 @@ To evaluate paper
 - Still unable to get core mode function to be correct
 
 ## 22/02/2021
+
+## 01/03/2021
+
+### Code Progress
+
+- Corrected wavelength to be in $\mu m$, as _Sellmeier_ equation assumes such
+- Current core mode effective refractive indices are calculated to be lower than the previous work's results
+- Corrected the Bessel Function Derivations
+
+## 08/03/2021
+
+### Code Progress
+
+- Need to figure out how to correctly calculate cladding mode dispersion relation equations
+
+### Supervisor Questions
+
+- Is there a difference between a Sapphire fibre, and a Sapphire Derived Fibre?
+
+## 15/03/2021
+
+- **PRESENTATION DUE on 19th**
+
+## 22/03/2021
 
 # Miscellaneous
 
