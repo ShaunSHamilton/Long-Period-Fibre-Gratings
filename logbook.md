@@ -294,6 +294,8 @@ To evaluate paper
 ### Supervisor Questions
 
 - Is there a difference between a Sapphire fibre, and a Sapphire Derived Fibre?
+- Should the report contain a conclusion?
+- The values I used for Sellmeier Coefficients are different to previous paper's. Should I change this?
 
 ## 15/03/2021
 

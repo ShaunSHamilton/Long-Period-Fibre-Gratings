@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Long-Period-Fibre-Gratings/static/css/main.c6af2a2c.chunk.css",
+    "main.js": "/Long-Period-Fibre-Gratings/static/js/main.1d469aaa.chunk.js",
+    "main.js.map": "/Long-Period-Fibre-Gratings/static/js/main.1d469aaa.chunk.js.map",
+    "runtime-main.js": "/Long-Period-Fibre-Gratings/static/js/runtime-main.b4eeb853.js",
+    "runtime-main.js.map": "/Long-Period-Fibre-Gratings/static/js/runtime-main.b4eeb853.js.map",
+    "static/js/2.64e341f7.chunk.js": "/Long-Period-Fibre-Gratings/static/js/2.64e341f7.chunk.js",
+    "static/js/2.64e341f7.chunk.js.map": "/Long-Period-Fibre-Gratings/static/js/2.64e341f7.chunk.js.map",
+    "index.html": "/Long-Period-Fibre-Gratings/index.html",
+    "static/css/main.c6af2a2c.chunk.css.map": "/Long-Period-Fibre-Gratings/static/css/main.c6af2a2c.chunk.css.map",
+    "static/js/2.64e341f7.chunk.js.LICENSE.txt": "/Long-Period-Fibre-Gratings/static/js/2.64e341f7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b4eeb853.js",
+    "static/js/2.64e341f7.chunk.js",
+    "static/css/main.c6af2a2c.chunk.css",
+    "static/js/main.1d469aaa.chunk.js"
+  ]
+}
