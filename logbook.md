@@ -290,12 +290,17 @@ To evaluate paper
 ### Code Progress
 
 - Need to figure out how to correctly calculate cladding mode dispersion relation equations
+- Fixed Sellmeier equation, and produced results closer to previous work
 
 ### Supervisor Questions
 
 - Is there a difference between a Sapphire fibre, and a Sapphire Derived Fibre?
 - Should the report contain a conclusion?
 - The values I used for Sellmeier Coefficients are different to previous paper's. Should I change this?
+
+- Bullet-points kill technical presentations... should I still include some for facts given to cite?
+- Should all references to facts spoken be cited?
+- Can other work's images be used for presentation? Or, should all images be, ideally, _homemade_?
 
 ## 15/03/2021
 
