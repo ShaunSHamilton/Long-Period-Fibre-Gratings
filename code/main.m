@@ -62,17 +62,17 @@ SELLMEIER_COEFFICIENTS_CLAD = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414
 % -------------------------------
 
 % PLOT CORE MODE
-temo = zeros(300,1);
-i = 1300:1600;
-for ii = i
-    x = coremode_n_eff(ii*power(10,-3),r_1);
-    temo(ii-1299) = x;
-end
-plot(i,temo); title('Core $n_{eff}$ vs $\lambda$',"Interpreter","latex");
-ylabel('ERI Core ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
+% temo = zeros(300,1);
+% i = 1300:1599;
+% for ii = i
+%     x = coremode_n_eff(ii*power(10,-3),r_1);
+%     temo(ii-1299) = x;
+% end
+% plot(i,temo); title('Core $n_{eff}$ vs $\lambda$',"Interpreter","latex");
+% ylabel('ERI Core ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
 
 % PLOT CLADDING MODES
-% lambda_test = 1550E-3;
-% n_eff = coremode_n_eff(lambda_test, r_1);
-% [zeta_0, zeta_0_prime] = cladding_mode(lambda_test,r_1,r_2, n_eff);
-% plot(zeta_0);
+lambda_test = 1550E-3;
+n_eff = 1.442:0.00001:1.444;%coremode_n_eff(lambda_test, r_1);
+[zeta_0, zeta_0_prime] = cladding_mode(lambda_test,r_1,r_2, n_eff);
+plot(n_eff,zeta_0);
