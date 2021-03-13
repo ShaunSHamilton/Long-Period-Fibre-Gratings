@@ -68,8 +68,8 @@ for ii = i
     x = coremode_n_eff(ii*power(10,-3),r_1);
     temo(ii-1299) = x;
 end
-plot(i,temo); title('$n_{eff}$ vs $\lambda$',"Interpreter","latex");
-ylabel('$n_{eff}$','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
+plot(i,temo); title('Core $n_{eff}$ vs $\lambda$',"Interpreter","latex");
+ylabel('ERI Core ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
 
 % PLOT CLADDING MODES
 % lambda_test = 1550E-3;
