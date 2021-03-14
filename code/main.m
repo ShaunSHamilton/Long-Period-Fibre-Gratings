@@ -73,6 +73,6 @@ SELLMEIER_COEFFICIENTS_CLAD = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414
 
 % PLOT CLADDING MODES
 lambda_test = 1550E-3;
-n_eff = 1.442:0.00001:1.444;%coremode_n_eff(lambda_test, r_1);
+n_eff = 1.442:0.00001:1.446;%coremode_n_eff(lambda_test, r_1);
 [zeta_0, zeta_0_prime] = cladding_mode(lambda_test,r_1,r_2, n_eff);
-plot(n_eff,zeta_0);
+plot(n_eff,zeta_0, n_eff, zeta_0_prime);
