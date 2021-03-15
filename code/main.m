@@ -53,7 +53,8 @@ Z_0 = 377; % Electromagnetic Impedance in Vacuum
 r_1 = 4.15E-6;
 r_2 = 62.5E-6;
 
-global SELLMEIER_COEFFICIENTS_CORE SELLMEIER_COEFFICIENTS_CLAD
+global SELLMEIER_COEFFICIENTS_CLAD
+% 3.1% Ge-Doped
 SELLMEIER_COEFFICIENTS_CORE = [0.7028554,0.4146307,0.8974540,0.0727723,0.1143085,9.896161];
 SELLMEIER_COEFFICIENTS_CLAD = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414,9.896161];
 
@@ -62,17 +63,17 @@ SELLMEIER_COEFFICIENTS_CLAD = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414
 % -------------------------------
 
 % PLOT CORE MODE
-% temo = zeros(300,1);
+% temp1 = zeros(300,1);
 % i = 1300:1599;
 % for ii = i
-%     x = coremode_n_eff(ii*power(10,-3),r_1);
-%     temo(ii-1299) = x;
+%     x = coremode_n_eff(ii*power(10,-3),r_1, SELLMEIER_COEFFICIENTS_CORE);
+%     temp1(ii-1299) = x;
 % end
-% plot(i,temo); title('Core $n_{eff}$ vs $\lambda$',"Interpreter","latex");
+% plot(i,temp1); title('Core $n_{eff}$ vs $\lambda$',"Interpreter","latex");
 % ylabel('ERI Core ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
 
 % PLOT CLADDING MODES
 lambda_test = 1550E-3;
-n_eff = 1.442:0.00001:1.446;%coremode_n_eff(lambda_test, r_1);
-[zeta_0, zeta_0_prime] = cladding_mode(lambda_test,r_1,r_2, n_eff);
+n_eff = 1.442:0.00001:1.446;%coremode_n_eff(lambda_test, r_1,SELLMEIER_COEFFICIENTS_CORE);
+[zeta_0, zeta_0_prime] = cladding_mode(lambda_test,r_1,r_2, n_eff, SELLMEIER_COEFFICIENTS_CORE);
 plot(n_eff,zeta_0, n_eff, zeta_0_prime);
