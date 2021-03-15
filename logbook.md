@@ -294,28 +294,30 @@ To evaluate paper
 
 ### Supervisor Questions
 
-- Is there a difference between a Sapphire fibre, and a Sapphire Derived Fibre?
-  - Send email with paper mentioning SDF to JS.
-  - 
-- Should the report contain a conclusion?
-  - Always nice to have a conclusion, but need something closer to a finished state.
-- The values I used for Sellmeier Coefficients are different to previous paper's. Should I change this?
-  - This is fine.
-- Bullet-points kill technical presentations... should I still include some for facts given to cite?
-  - What are they not going to know?
-  - Predict the behaviour in Sapphire. Respond at the correct wavelength.
-- Should all references to facts spoken be cited?
-  - Can use bullet-points
-- Can other work's images be used for presentation? Or, should all images be, ideally, _homemade_?
-  - Other work's images can be used.
+Is there a difference between a Sapphire fibre, and a Sapphire Derived Fibre?
 
-- What to mention for presentation:
-  - Dispersion
-  - Coupling requires phase matching
-    - $n_{\text{eff}}$ for group velocity to be the same
-  - Equations for dispersion
-  - Coremode equation
-  - Cladding mode equation
+- Send email with paper mentioning SDF to JS ✔️
+  Should the report contain a conclusion?
+- Always nice to have a conclusion, but need something closer to a finished state.
+  The values I used for Sellmeier Coefficients are different to previous paper's. Should I change this?
+- This is fine. Mention why there are differneces
+  Bullet-points kill technical presentations... should I still include some for facts given to cite?
+- Should all references to facts spoken be cited?
+  - Can use bullet-points, and reference
+    Can other work's images be used for presentation? Or, should all images be, ideally, _homemade_?
+- Other work's images can be used
+
+What to mention for presentation:
+
+- Dispersion
+- Coupling requires phase matching
+  - $n_{\text{eff}}$ for group velocity to be the same
+- Equations for dispersion
+- Coremode equation
+- Cladding mode equation
+
+- What are they not going to know?
+- Predict the behaviour in Sapphire. Respond at the correct wavelength.
 
 - Potentially put up previous work's graph
 
@@ -334,10 +336,11 @@ To evaluate paper
 - Need to go from experimental to theoretical analysis - can we replicate what is already out there/use what is already out there.
 - If we want to have this type of response with this material, what period should we use on the fibre - develop a predicating tool
 
-- JS's Hope for this Research:
-  - This is where we are.
-  - This is what we have
-  - This is how far along the road.
+JS's Hope for this Research:
+
+- This is where we are.
+- This is what we have
+- This is how far along the road.
 
 ## 15/03/2021
 
