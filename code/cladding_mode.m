@@ -7,7 +7,7 @@ function [zeta_0, zeta_0_prime] = cladding_mode(lambda, r_1, r_2, n_eff, SELLMEI
     n_3 = 1;
     I = 250;
     alpha = 1;
-    
+    lambda = lambda*power(10,-6);
     u_1 = u(lambda, n_1, n_eff);
     u_2 = u(lambda, n_2, n_eff);
     z_1 = u_2*r_2;

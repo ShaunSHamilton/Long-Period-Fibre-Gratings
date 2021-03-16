@@ -1,5 +1,5 @@
 global step_size Z_0
-step_size = 1E-15; % Bisection step size
+step_size = 1E-17; % Bisection step size
 Z_0 = 377; % Electromagnetic Impedance in Vacuum
 
 r_1 = 4.15E-6;
@@ -9,10 +9,11 @@ global SELLMEIER_COEFFICIENTS_CLAD
 SELLMEIER_COEFFICIENTS_CLAD = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414,9.896161];
 
 % PLOT CORE MODE
-i = 1300:1599;
-temp = zeros(size(i,1),8);
+coeff_count = 8; % Number of SELLMEIER_COEFFICIENTS_CORE to use
+i = 200:1599;
+temp = zeros(size(i,1),coeff_count);
 hold on;
-for j = 1:8
+for j = 1:coeff_count
     switch j
         case 1
             % 0% Ge-Doped
@@ -39,9 +40,11 @@ for j = 1:8
             % 13.5% Ge-Doped
             SELLMEIER_COEFFICIENTS_CORE = [0.73454395,0.42710828,0.82103399,0.08697693,0.11195191,10.48654];
     end
+    c = 1;
     for ii = i
         x = coremode_n_eff(ii*power(10,-3),r_1, SELLMEIER_COEFFICIENTS_CORE);
-        temp(ii-1299,j) = x;
+        temp(c,j) = x;
+        c = c + 1;
     end
     plot(i,temp(:,j));
 end

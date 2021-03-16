@@ -4,5 +4,6 @@ function x = Y_der(alpha, z)
     c(x) = Y(alpha,x);
     d = diff(c,x);
     x = double(d(z));
+%     x = 0.5*(Y(alpha-1,z)-Y(alpha+1,z));
 end
 

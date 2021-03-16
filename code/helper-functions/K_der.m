@@ -4,5 +4,6 @@ function x = K_der(alpha, z)
     c(x) = K(alpha,x);
     d = diff(c,x);
     x = double(d(z));
+%     x = 0.5*(K(alpha-1,z)-K(alpha+1,z));
 end
 
