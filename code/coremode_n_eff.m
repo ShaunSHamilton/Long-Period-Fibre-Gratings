@@ -1,10 +1,10 @@
-function n_eff_1 = coremode_n_eff(lambda_0,r_1, SELLMEIER_COEFFICIENTS_CORE)
+function n_eff_1 = coremode_n_eff(lambda_0,r_1, sell_core, sell_clad)
 %COREMODE_N_EFF Calculates the core effective refractive index for a given
 %wavelength
 
-    global SELLMEIER_COEFFICIENTS_CLAD step_size;
-    n_1 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CORE);
-    n_2 = Sellmeier(lambda_0, SELLMEIER_COEFFICIENTS_CLAD);
+    step_size = 1E-17;
+    n_1 = Sellmeier(lambda_0, sell_core);
+    n_2 = Sellmeier(lambda_0, sell_clad);
     n_eff_1_prev = n_2 + step_size;
     n_eff_1_post = n_1 - step_size;
     while n_eff_1_post - n_eff_1_prev > 1E-12
