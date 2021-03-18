@@ -1,9 +1,9 @@
-function [zeta_0, zeta_0_prime] = cladding_mode(lambda, r_1, r_2, n_eff, SELLMEIER_COEFFICIENTS_CORE)
+function [zeta_0, zeta_0_prime] = cladding_mode(lambda, r_1, r_2, n_eff, sell_core, sell_clad)
 %CLADDING_MODE Calculates the cladding mode dispersion relation
 
-    global SELLMEIER_COEFFICIENTS_CLAD Z_0;
-    n_1 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS_CORE);
-    n_2 = Sellmeier(lambda, SELLMEIER_COEFFICIENTS_CLAD);
+    global Z_0;
+    n_1 = Sellmeier(lambda, sell_core);
+    n_2 = Sellmeier(lambda, sell_clad);
     n_3 = 1;
     I = 250;
     alpha = 1;

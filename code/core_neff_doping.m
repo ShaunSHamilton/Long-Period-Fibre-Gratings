@@ -1,5 +1,6 @@
 % Init parallel options
 pool = gcp;
+load train
 %addAttachedFiles(pool,{'helper-functions/Sellmeier.m'});
 
 global step_size Z_0
@@ -14,7 +15,7 @@ sell_clad = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414,9.896161];
 % PLOT CORE MODE
 coeff_count = 8; % Number of SELLMEIER_COEFFICIENTS_CORE to use
 lambda_i = 200;
-step = 0.1;
+step = 0.005;
 i = lambda_i:step:1599;
 temp = zeros(size(i,2),coeff_count);
 c = uint64((i-(lambda_i))./step)+1;
@@ -46,16 +47,17 @@ for j = 1:coeff_count
             % 13.5% Ge-Doped
             sell_core = [0.73454395,0.42710828,0.82103399,0.08697693,0.11195191,10.48654];
     end
-    %c = 1;
-    for ii = c
+    parfor ii = c
         lambda = (double(ii-1)*step + lambda_i)*power(10,-3);
         x = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
         temp(ii,j) = x;
-        %c = c + 1;
     end
     plot((c-1)*step + lambda_i,temp(:,j));
 end
+sound(y,Fs);
 title('Core $n_{eff}$ vs $\lambda$',"Interpreter","latex");
 legend('0.0% Ge','3.1% Ge','3.5% Ge','4.1% Ge','5.8% Ge','7.0% Ge','7.9% Ge','13.5% Ge');
 hold off
+load train
+sound(y,Fs);
 ylabel('ERI Core ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
