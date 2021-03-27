@@ -81,6 +81,8 @@ n_eff = linspace(1.44,n_core,10000);
 figure(2)
 plot(n_eff,real(zeta_0), n_eff, real(zeta_0_prime));
 legend('Zeta0',"Zeta0'");
+
+intersections = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime));
+
 load train
 sound(y, Fs)
-
