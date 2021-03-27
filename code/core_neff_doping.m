@@ -1,5 +1,5 @@
 % Init parallel options
-pool = gcp;
+%pool = gcp;
 load train
 %addAttachedFiles(pool,{'helper-functions/Sellmeier.m'});
 
@@ -11,16 +11,17 @@ r_1 = 4.15E-6;
 r_2 = 62.5E-6;
 
 sell_clad = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414,9.896161];
+% 411nm @ 1.471->1.47 // 416nm @ 1.469->1.472
 
 % PLOT CORE MODE
-coeff_count = 8; % Number of SELLMEIER_COEFFICIENTS_CORE to use
-lambda_i = 200;
-step = 0.005;
-i = lambda_i:step:1599;
+coeff_count = 2; % Number of SELLMEIER_COEFFICIENTS_CORE to use
+lambda_i = 410;
+step = 0.0005;
+i = lambda_i:step:417;
 temp = zeros(size(i,2),coeff_count);
 c = uint64((i-(lambda_i))./step)+1;
 hold on;
-for j = 1:coeff_count
+for j = 2:coeff_count
     switch j
         case 1
             % 0% Ge-Doped
@@ -47,7 +48,7 @@ for j = 1:coeff_count
             % 13.5% Ge-Doped
             sell_core = [0.73454395,0.42710828,0.82103399,0.08697693,0.11195191,10.48654];
     end
-    parfor ii = c
+    for ii = c
         lambda = (double(ii-1)*step + lambda_i)*power(10,-3);
         x = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
         temp(ii,j) = x;
@@ -56,7 +57,7 @@ for j = 1:coeff_count
 end
 sound(y,Fs);
 title('Core $n_{eff}$ vs $\lambda$',"Interpreter","latex");
-legend('0.0% Ge','3.1% Ge','3.5% Ge','4.1% Ge','5.8% Ge','7.0% Ge','7.9% Ge','13.5% Ge');
+legend('0.0% Ge','3.1% Ge'); %,'3.5% Ge','4.1% Ge','5.8% Ge','7.0% Ge','7.9% Ge','13.5% Ge');
 hold off
 load train
 sound(y,Fs);
