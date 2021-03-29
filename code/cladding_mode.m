@@ -17,8 +17,8 @@ function [zeta_0, zeta_0_prime] = cladding_mode(lambda, r_1, r_2, n_eff, sell_co
     u_21 = (1./(u_2.^2)) - (1./(u_1.^2));
     u_32 = (1./(w_3.^2)) + (1./(u_2.^2));
 
-    sigma_1 = I*alpha*n_eff/Z_0;
-    sigma_2 = I*alpha*n_eff*Z_0;
+    sigma_1 = I*alpha.*n_eff./Z_0;
+    sigma_2 = I*alpha.*n_eff.*Z_0;
 
     % REPEATED CALCULATIONS ------------
     J_v = j_func(alpha,u_1,r_1);
