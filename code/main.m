@@ -46,7 +46,7 @@
 % -------------------------------
 % GLOBAL VARIABLES
 % -------------------------------
-global step_size Z_0
+global step_size
 step_size = 1E-15; % Bisection step size
 Z_0 = 377; % Electromagnetic Impedance in Vacuum
 
@@ -97,28 +97,28 @@ sell_clad = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414,9.896161];
 %  --------------------------------------------------------------
 num_cladding_modes = 15;
 lambda_i = 1300;
-step = 1;
+step = 0.05;
 i = lambda_i:step:1599;
-%temp = zeros(size(i,2),num_cladding_modes);
-temp = [];
+temp = zeros(size(i,2),num_cladding_modes);
+%temp = [];
 c = uint64((i-(lambda_i))./step)+1;
-for ii = c
+parfor ii = c
     lambda = (double(ii-1)*step + lambda_i)*power(10,-3);
-    x = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
-    n_eff = linspace(1.44,n_core,10);
+    n_core = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
+    n_eff = linspace(1.44,n_core,1000);
     [zeta_0, zeta_0_prime] = cladding_mode(lambda,r_1,r_2, n_eff, sell_core, sell_clad);
     % FINDING CLADDING MODE INTERSECTIONS
     intersections = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime), num_cladding_modes);
-    temp(ii,1:size(intersections,1)) = intersections';
+    %temp(ii,1:size(intersections,1)) = intersections';
+    temp(ii,:) = intersections';
     percent_complete = (double(ii)/size(c,2))*100;
     fprintf("Complete: %2.2f \n", percent_complete);
 end
 hold on
 for j = 1:num_cladding_modes
     ERI = (~temp(:,j)==0);
-    plot(i,temp(:,j));
+    plot(i,temp(ERI,j));
 end
-sound(y,Fs);
 title('Cladding Mode ERI $n_{eff}$ vs $\lambda$',"Interpreter","latex");
 %legend('0.0% Ge','3.1% Ge'); %,'3.5% Ge','4.1% Ge','5.8% Ge','7.0% Ge','7.9% Ge','13.5% Ge');
 hold off
@@ -126,6 +126,3 @@ load train
 sound(y,Fs);
 ylabel('ERI Cladding ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
 
-
-load train
-sound(y, Fs)
