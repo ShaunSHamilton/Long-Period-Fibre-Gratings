@@ -46,9 +46,6 @@
 % -------------------------------
 % GLOBAL VARIABLES
 % -------------------------------
-global step_size
-step_size = 1E-15; % Bisection step size
-Z_0 = 377; % Electromagnetic Impedance in Vacuum
 
 r_1 = 4.15E-6;
 r_2 = 62.5E-6;
@@ -60,13 +57,13 @@ sell_clad = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414,9.896161];
 % -------------------------------
 % TESTING
 % -------------------------------
-mode = 1; % 1-Core Mode ERI; 2-Cladding Modes; 3-Cladding Mode ERIs
+mode = 3; % 1-Core Mode ERI; 2-Cladding Modes; 3-Cladding Mode ERIs
 
 switch (mode)
     case 1
         % PLOT CORE MODE
         lambda_i = 1300;
-        step = 0.01;
+        step = 1;
         i = lambda_i:step:1600;
         temp1 = zeros(size(i,2),1);
         c = uint64((i-(lambda_i))./step)+1;
@@ -105,7 +102,7 @@ switch (mode)
         %  --------------------------------------------------------------
         num_cladding_modes = 15;
         lambda_i = 1300;
-        step = 1;
+        step = 1; % Step of 1 does not adversly affect coremode approx.
         i = lambda_i:step:1599;
         % Initialise plotting matrix
         temp = zeros(size(i,2),num_cladding_modes);
@@ -115,7 +112,8 @@ switch (mode)
             % Recalculate wavelength steps
             lambda = (double(ii-1)*step + lambda_i)*power(10,-3);
             n_core = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
-            n_eff = linspace(1.44,n_core,1000);
+            n_eff = linspace(1.44,n_core,1000); % [Weakly Guiding Fibres]
+            % suggests a few parts in a thousand is feasible.
             [zeta_0, zeta_0_prime] = cladding_mode(lambda,r_1,r_2, n_eff, sell_core, sell_clad);
             % FINDING CLADDING MODE INTERSECTIONS
             intersections = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime), num_cladding_modes);
