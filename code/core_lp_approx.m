@@ -10,7 +10,8 @@ function [left, right] = core_lp_approx(lambda_0,r_1,n_1,n_2,n_eff_1)
     e = J(0, c);
     left = c * d / e;
     f = v * sqr_temp2;
-    g = Y(1,f);
-    h = Y(0,f);
+    % Changed from Y to K
+    g = K(1,f);
+    h = K(0,f);
     right = f * g / h;
 end

@@ -57,13 +57,13 @@ sell_clad = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414,9.896161];
 % -------------------------------
 % TESTING
 % -------------------------------
-mode = 3; % 1-Core Mode ERI; 2-Cladding Modes; 3-Cladding Mode ERIs
+mode = input("Select a mode: "); % 1-Core Mode ERI; 2-Cladding Modes; 3-Cladding Mode ERIs
 
 switch (mode)
     case 1
         % PLOT CORE MODE
         lambda_i = 1300;
-        step = 1;
+        step = 0.1;
         i = lambda_i:step:1600;
         temp1 = zeros(size(i,2),1);
         c = uint64((i-(lambda_i))./step)+1;
@@ -72,7 +72,7 @@ switch (mode)
             x = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
             temp1(ii,1) = x;
         end
-        figure(1)
+        %figure(1)
         %plot(i,temp1); title('Core $n_{eff}$ vs $\lambda$',"Interpreter","latex");
         %ylabel('ERI Core ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
         
@@ -80,10 +80,10 @@ switch (mode)
         % --------------------------------------------------------------
         % PLOT CLADDING MODES
         num_cladding_modes = 15;
-        %lambda_test = 1550E-3; % in micrometers
+        lambda_test = 1550E-3; % in micrometers
         
         n_core = coremode_n_eff(lambda_test, r_1,sell_core, sell_clad);
-        n_eff = linspace(1.44,n_core,10000);
+        n_eff = linspace(1.44,n_core,1000);
         [zeta_0, zeta_0_prime] = cladding_mode(lambda_test,r_1,r_2, n_eff, sell_core, sell_clad);
         
         
@@ -100,9 +100,9 @@ switch (mode)
         
     case 3
         %  --------------------------------------------------------------
-        num_cladding_modes = 15;
+        num_cladding_modes = 4;
         lambda_i = 1300;
-        step = 1; % Step of 1 does not adversly affect coremode approx.
+        step = 0.5; % Step of 1 does not adversly affect coremode approx.
         i = lambda_i:step:1599;
         % Initialise plotting matrix
         temp = zeros(size(i,2),num_cladding_modes);
@@ -112,7 +112,7 @@ switch (mode)
             % Recalculate wavelength steps
             lambda = (double(ii-1)*step + lambda_i)*power(10,-3);
             n_core = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
-            n_eff = linspace(1.44,n_core,1000); % [Weakly Guiding Fibres]
+            n_eff = temp1';%linspace(1.44,n_core,5000); % [Weakly Guiding Fibres]
             % suggests a few parts in a thousand is feasible.
             [zeta_0, zeta_0_prime] = cladding_mode(lambda,r_1,r_2, n_eff, sell_core, sell_clad);
             % FINDING CLADDING MODE INTERSECTIONS
