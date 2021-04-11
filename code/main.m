@@ -100,9 +100,9 @@ switch (mode)
         
     case 3
         %  --------------------------------------------------------------
-        num_cladding_modes = 4;
+        num_cladding_modes = 13;
         lambda_i = 1300;
-        step = 0.5; % Step of 1 does not adversly affect coremode approx.
+        step = 1; % Step of 1 does not adversly affect coremode approx.
         i = lambda_i:step:1599;
         % Initialise plotting matrix
         temp = zeros(size(i,2),num_cladding_modes);
@@ -112,7 +112,7 @@ switch (mode)
             % Recalculate wavelength steps
             lambda = (double(ii-1)*step + lambda_i)*power(10,-3);
             n_core = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
-            n_eff = temp1';%linspace(1.44,n_core,5000); % [Weakly Guiding Fibres]
+            n_eff = linspace(1.44,n_core,5000); % [Weakly Guiding Fibres]
             % suggests a few parts in a thousand is feasible.
             [zeta_0, zeta_0_prime] = cladding_mode(lambda,r_1,r_2, n_eff, sell_core, sell_clad);
             % FINDING CLADDING MODE INTERSECTIONS

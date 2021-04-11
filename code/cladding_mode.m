@@ -71,7 +71,7 @@ function [zeta_0, zeta_0_prime] = cladding_mode(lambda, r_1, r_2, n_eff, sell_co
 %     .*P_l - K_Q.*(n3_2/n1_2) + J_R - S_l.*(n2_2./(n1_2.*u_2))));
 
     zeta_0_prime_num = ((u_2.*P_l.*(J_v.*u32_r2 - K_v.*(n3s_n2s.*u21_r1))...
-        + Q_l.*(u32_r2) + R_l.*u21_r1));
+        - Q_l.*(u32_r2) - R_l.*u21_r1));
     zeta_0_prime_den = (u_2.*P_l.*(J_K.*n3s_n2s + sigma_u./(n1_s*r_12))...
         - K_Q.*(n3_s/n1_s) + J_R - S_l.*(n2_s./(n1_s.*u_2)));
     zeta_0_prime = (sigma_1).*(zeta_0_prime_num./zeta_0_prime_den);
