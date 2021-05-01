@@ -79,7 +79,7 @@ switch (mode)
     case 2
         % --------------------------------------------------------------
         % PLOT CLADDING MODES
-        num_cladding_modes = 15;
+        num_cladding_modes = 1;
         lambda_test = 1550E-3; % in micrometers
         
         n_core = coremode_n_eff(lambda_test, r_1,sell_core, sell_clad);
@@ -89,21 +89,22 @@ switch (mode)
         
         % FINDING CLADDING MODE INTERSECTIONS
         for i = 1:num_cladding_modes
-            intersections = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime), num_cladding_modes);
+            [intersections, x, y] = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime), num_cladding_modes);
             
         end
         
         % plot(n_eff,zeta_0, n_eff, zeta_0_prime);
         figure(2)
-        plot(n_eff,real(zeta_0), n_eff, real(zeta_0_prime));
+        plot(n_eff,real(zeta_0), n_eff, real(zeta_0_prime), x, y, 'rx');
         legend('Zeta0',"Zeta0'");
         
     case 3
         %  --------------------------------------------------------------
-        num_cladding_modes = 13;
+        num_cladding_modes = 1;
         lambda_i = 1300;
         step = 1; % Step of 1 does not adversly affect coremode approx.
         i = lambda_i:step:1599;
+        polys = zeros(size(i,2),10);
         % Initialise plotting matrix
         temp = zeros(size(i,2),num_cladding_modes);
         % Prepare steps for parallel computing
@@ -116,14 +117,16 @@ switch (mode)
             % suggests a few parts in a thousand is feasible.
             [zeta_0, zeta_0_prime] = cladding_mode(lambda,r_1,r_2, n_eff, sell_core, sell_clad);
             % FINDING CLADDING MODE INTERSECTIONS
-            intersections = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime), num_cladding_modes);
+            [intersections, x, y] = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime), num_cladding_modes);
             %temp(ii,1:size(intersections,1)) = intersections';
             temp(ii,:) = intersections';
             percent_complete = (double(ii)/size(c,2))*100;
+            polys(ii,:) = x(1:10)';
             % Percent Complete is not accurate for multi-threaded operations,
             % however, it does provide a somewhat useful indication as to progress
             fprintf("Complete: %2.2f \n", percent_complete);
         end
+        figure(1)
         hold on
         for j = 1:num_cladding_modes
             ERI = (~temp(:,j)==0);
@@ -135,7 +138,8 @@ switch (mode)
         load train
         sound(y,Fs);
         ylabel('ERI Cladding ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
-        
+        figure(2)
+        plot(polys);
 end
 
 %%

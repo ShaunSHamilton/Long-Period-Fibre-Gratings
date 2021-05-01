@@ -2,7 +2,7 @@ function n_eff_1 = coremode_n_eff(lambda_0,r_1, sell_core, sell_clad)
 %COREMODE_N_EFF Calculates the core effective refractive index for a given
 %wavelength
 
-    isPlot = true;
+    isPlot = false;
     x = [];
     y = [];
     c = 1;
@@ -19,10 +19,10 @@ function n_eff_1 = coremode_n_eff(lambda_0,r_1, sell_core, sell_clad)
 
         if (left - right < 0)
             n_eff_1_post = n_eff_1;
-            fprintf("Less than: %f \n",n_eff_1);
+            %fprintf("Less than: %f \n",n_eff_1);
         elseif (left - right > 0)
             n_eff_1_prev = n_eff_1;
-            fprintf("Greater than: %f \n",n_eff_1);
+            %fprintf("Greater than: %f \n",n_eff_1);
         end
         if isPlot
             x(c) = n_eff_1;
