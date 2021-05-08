@@ -5,6 +5,8 @@ function [intersections, x, y] = find_intersections(x,line_1,line_2, num)
     polys = [x, y];
     %figure(2);
     %plot(polys);
-    intersections = polys(end-min(num,length(polys))+1:end);
+    pol_len = length(polys);
+    to_return = pol_len-min(num, pol_len)+1:pol_len;
+    intersections = polys(to_return,:);
 end
 
