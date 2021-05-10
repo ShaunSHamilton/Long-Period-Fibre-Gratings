@@ -79,28 +79,28 @@ switch (mode)
     case 2
         % --------------------------------------------------------------
         % PLOT CLADDING MODES
-        num_cladding_modes = 1;
+        num_cladding_modes = 15;
         lambda_test = 1550E-3; % in micrometers
         
         n_core = coremode_n_eff(lambda_test, r_1,sell_core, sell_clad);
-        n_eff = linspace(1.44,n_core,1000);
+        n_clad = Sellmeier(lambda_test, sell_clad);
+        n_eff = linspace(1.44,n_core,10000);
         [zeta_0, zeta_0_prime] = cladding_mode(lambda_test,r_1,r_2, n_eff, sell_core, sell_clad);
         
         
         % FINDING CLADDING MODE INTERSECTIONS
-        for i = 1:num_cladding_modes
-            [intersections, x, y] = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime), num_cladding_modes);
-            
-        end
+        real_0 = real(zeta_0);
+        real_prime = real(zeta_0_prime);
+        [intersections, x, y] = find_intersections(n_eff(2:end), real_0(2:end), real_prime(2:end), num_cladding_modes);
         
         % plot(n_eff,zeta_0, n_eff, zeta_0_prime);
         figure(2)
-        plot(n_eff,real(zeta_0), n_eff, real(zeta_0_prime), x, y, 'rx');
-        legend('Zeta0',"Zeta0'");
+        plot(n_eff,real_0, n_eff, real_prime, x, y, 'ro');
+        legend('Zeta0',"Zeta0'", 'intersection');
         
     case 3
         %  --------------------------------------------------------------
-        num_cladding_modes = 2;
+        num_cladding_modes = 15;
         lambda_i = 1300;
         step = 1; % Step of 1 does not adversly affect coremode approx.
         i = lambda_i:step:1599;
@@ -134,7 +134,7 @@ switch (mode)
         hold on
         for j = 1:num_cladding_modes
             ERI = (~temp(:,j)==0);
-            plot(i,temp(ERI,j));
+            plot(i(ERI),temp(ERI,j));
             %plot(i, intersecs(j,:));
         end
         title('Cladding Mode ERI $n_{eff}$ vs $\lambda$',"Interpreter","latex");

@@ -7,6 +7,6 @@ function [intersections, x, y] = find_intersections(x,line_1,line_2, num)
     %plot(polys);
     pol_len = length(polys);
     to_return = pol_len-min(num, pol_len)+1:pol_len;
-    intersections = polys(to_return,:);
+    intersections = padarray(polys(to_return,:),num-length(to_return),'post');
 end
 
