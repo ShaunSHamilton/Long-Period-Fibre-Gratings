@@ -57,9 +57,9 @@ sell_clad = [0.6961663,0.4079426,0.8974794,0.0684043,0.1162414,9.896161];
 % -------------------------------
 % TESTING
 % -------------------------------
-mode = input("Select a mode: "); % 1-Core Mode ERI; 2-Cladding Modes; 3-Cladding Mode ERIs
+mode_in = input("Select a mode: "); % 1-Core Mode ERI; 2-Cladding Modes; 3-Cladding Mode ERIs
 
-switch (mode)
+switch (mode_in)
     case 1
         % PLOT CORE MODE
         lambda_i = 1300;
