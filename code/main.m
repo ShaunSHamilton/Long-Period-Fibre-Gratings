@@ -83,19 +83,20 @@ switch (mode_in)
         lambda_test = 1550E-3; % in micrometers
         
         n_core = coremode_n_eff(lambda_test, r_1,sell_core, sell_clad);
+        
         n_clad = Sellmeier(lambda_test, sell_clad);
-        n_eff = linspace(1.44,n_core,10000);
+        n_eff = linspace(1.01,n_clad-0.001,10000);
         [zeta_0, zeta_0_prime] = cladding_mode(lambda_test,r_1,r_2, n_eff, sell_core, sell_clad);
         
         
         % FINDING CLADDING MODE INTERSECTIONS
         real_0 = real(zeta_0);
         real_prime = real(zeta_0_prime);
-        [intersections, x, y] = find_intersections(n_eff(2:end), real_0(2:end), real_prime(2:end), num_cladding_modes);
+        [intersections, x, y] = find_intersections(n_eff, real_0, real_prime, num_cladding_modes);
         
-        % plot(n_eff,zeta_0, n_eff, zeta_0_prime);
-        figure(2)
+        % plot(n_eff,zeta_0, n_eff, zeta_0_pr
         plot(n_eff,real_0, n_eff, real_prime, x, y, 'ro');
+        xlabel("Refractive Index");
         legend('Zeta0',"Zeta0'", 'intersection');
         
     case 3
@@ -104,7 +105,6 @@ switch (mode_in)
         lambda_i = 1300;
         step = 1; % Step of 1 does not adversly affect coremode approx.
         i = lambda_i:step:1599;
-        %polys = zeros(size(i,2),10);
         % Initialise plotting matrix
         temp = zeros(length(i),num_cladding_modes);
         %intersecs = zeros(num_cladding_modes, size(i,2)*2);
@@ -115,36 +115,29 @@ switch (mode_in)
             % Recalculate wavelength steps
             lambda = (double(ii-1)*step + lambda_i)*power(10,-3);
             n_core = coremode_n_eff(lambda,r_1, sell_core, sell_clad);
-            n_eff = linspace(1.44,n_core,1000); % [Weakly Guiding Fibres]
-            % suggests a few parts in a thousand is feasible.
+            n_clad = Sellmeier(lambda, sell_clad);
+            n_eff = linspace(1,n_clad,1000); % [Weakly Guiding Fibres]
+                % suggests a few parts in a thousand is feasible.
             [zeta_0, zeta_0_prime] = cladding_mode(lambda,r_1,r_2, n_eff, sell_core, sell_clad);
             % FINDING CLADDING MODE INTERSECTIONS
             [intersections, xi, yi] = find_intersections(n_eff, real(zeta_0), real(zeta_0_prime), num_cladding_modes);
-            %temp(ii,1:size(intersections,1)) = intersections';
             temp(ii,:) = intersections(:,1)';
-            %intersecs(:, [t, t+1]) = intersections;
-            %t = t + 2;
             percent_complete = (double(ii)/size(c,2))*100;
-            %polys(ii,:) = xi(1:10)';
             % Percent Complete is not accurate for multi-threaded operations,
             % however, it does provide a somewhat useful indication as to progress
             fprintf("Complete: %2.2f \n", percent_complete);
         end
-        %figure(1)
+        %clf();
         hold on
         for j = 1:num_cladding_modes
             ERI = (~temp(:,j)==0);
             plot(i(ERI),temp(ERI,j));
-            %plot(i, intersecs(j,:));
         end
         title('Cladding Mode ERI $n_{eff}$ vs $\lambda$',"Interpreter","latex");
-        %legend('0.0% Ge','3.1% Ge'); %,'3.5% Ge','4.1% Ge','5.8% Ge','7.0% Ge','7.9% Ge','13.5% Ge');
         hold off
         load train
         sound(y,Fs);
         ylabel('ERI Cladding ($n_{eff}$)','Interpreter',"latex"); xlabel('Wavelength ($\lambda$) [$nm$]','Interpreter',"latex");
-        %figure(2)
-        %plot(polys);
 end
 
 %%
